@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
 import theme from '../../configs/theme';
 
-const WordLine = styled.div`
+const WordLine = styled(Link)`
   height: 70px;
   display: flex;
   align-items: center;

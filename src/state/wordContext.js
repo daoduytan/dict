@@ -43,12 +43,17 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
   };
 
   const updateStatusWord = w => {
+    console.log('dada', w);
+
     const newWord = wordsToday.map(word => {
-      if (word.word === w.word) {
+      if (word.word === w) {
         return { ...word, status: !word.status };
       }
       return word;
     });
+
+    console.log('newWord', newWord);
+
     localStorage.setItem('words', JSON.stringify(newWord));
     setWordsToday(newWord);
   };

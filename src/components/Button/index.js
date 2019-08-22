@@ -5,9 +5,10 @@ const display = block => (block ? 'block' : 'inline-block');
 const width = block => (block ? '100%' : 'default');
 const padding = size => (size === 'large' ? '10px 15px' : '7px 10px');
 
-const background = type => (type === 'primary' ? 'red' : '#fff');
+const background = type => (type === 'primary' ? theme.color.primary : '#fff');
 const color = type => (type === 'primary' ? '#fff' : '#000');
-const colorBorder = type => (type === 'primary' ? 'red' : theme.color.border);
+const colorBorder = type =>
+  type === 'primary' ? theme.color.primary : theme.color.border;
 
 const Button = styled.button`
   display: ${({ block }) => display(block)};

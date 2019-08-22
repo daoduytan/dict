@@ -1,6 +1,6 @@
 const color = {
-  primary: 'red',
-  secondary: 'pink',
+  primary: '#0E9869',
+  secondary: '#FEC282',
   text: '#000',
   border: '#f1f1f1'
 };

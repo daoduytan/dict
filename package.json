@@ -55,5 +55,6 @@
     "flow-bin": "^0.101.0",
     "prettier": "^1.18.2"
   },
+  "proxy": "http://glyffix.com",
   "homepage": "https://daoduytan.github.io/dict"
 }

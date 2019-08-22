@@ -1,22 +1,134 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { find } from 'lodash/fp';
+
+import Axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Icon } from '../../components';
+import { Icon, Loading, Button } from '../../components';
 import icons from '../../assets/icons';
 
-const Detail = ({ match }) => {
-  const { params } = match;
+import {
+  DetailWrap,
+  Heading,
+  DetailContent,
+  CardStyle,
+  CarTitleStyle,
+  CardTitleSubStyle,
+  NumberStyle
+} from './style';
+import theme from '../../configs/theme';
+import connect from '../../state/connect';
 
-  console.log('rs', params);
+type DetailProps = {
+  match: {
+    params: {
+      w: String
+    }
+  },
+  updateStatusWord: Function
+};
+
+const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
+  const { params } = match;
+  const [loading, setLoading] = useState(true);
+
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const url = `https://sc5z4.sse.codesandbox.io/word/${params.w}`;
+
+    Axios.get(url).then(res => {
+      setData(res.data);
+      setLoading(false);
+    });
+  }, [params.w]);
+
+  if (loading) return <Loading />;
+
+  const isDone = () => {
+    const word = find(
+      w => w.word === params.w && w.status === true,
+      wordsToday
+    );
+    if (!word) return false;
+    return true;
+  };
 
   return (
-    <div style={{ padding: 30 }}>
-      <Link to="/">
-        <Icon icon={icons.back} size={20} />
-      </Link>
+    <DetailWrap>
+      <Heading>
+        <Link to="/">
+          <Icon icon={icons.back} size={20} />
+        </Link>
+        {params.w && (
+          <div style={{ marginLeft: 15, fontWeight: 700 }}>{params.w}</div>
+        )}
+      </Heading>
+      <DetailContent>
+        {data.map(d => {
+          return (
+            <CardStyle key={d.pron}>
+              <CarTitleStyle>{d.title}</CarTitleStyle>
+              <CardTitleSubStyle>
+                {d.posgram.map(p => (
+                  <span key={p}>{p}</span>
+                ))}
 
-      {params.word && <div>{params.word}</div>}
-    </div>
+                <span style={{ marginLeft: 10 }}>{d.pron}</span>
+              </CardTitleSubStyle>
+              {d.content.map((c, l) => (
+                <div key={c.def} style={{ margin: '15px 0', display: 'flex' }}>
+                  <NumberStyle>{l + 1}</NumberStyle>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 700, lineHeight: 1.3 }}>
+                      {c.def}
+                    </div>
+                    <div
+                      style={{
+                        margin: '10px 0',
+                        color: theme.color.primary,
+                        fontWeight: 700
+                      }}
+                    >
+                      {c.trans}
+                    </div>
+                    <div>
+                      <b style={{ margin: '15px 0', display: 'block' }}>
+                        <small>Example:</small>
+                      </b>
+                      {c.examp.map((ex, i) => (
+                        <div
+                          style={{ marginBottom: 10, fontSize: 14 }}
+                          key={ex}
+                        >
+                          {`${i + 1}. ${ex}`}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </CardStyle>
+          );
+        })}
+
+        <Button
+          type="primary"
+          block
+          size="large"
+          onClick={() => updateStatusWord(params.w)}
+        >
+          {isDone() ? <Icon icon={icons.check} color="#fff" /> : 'Done'}
+        </Button>
+      </DetailContent>
+    </DetailWrap>
   );
 };
 
-export default Detail;
+const select = [
+  {
+    values: ['wordsToday', 'updateStatusWord'],
+    context: 'wordContext'
+  }
+];
+
+export default connect(select)(Detail);

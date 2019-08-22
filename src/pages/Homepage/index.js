@@ -1,5 +1,7 @@
 // @flow
 import React, { memo } from 'react';
+import Axios from 'axios';
+
 import { Icon, Modal, Button } from '../../components';
 
 import connect from '../../state/connect';
@@ -71,9 +73,12 @@ const Homepage = ({ wordsToday, reload, updateStatusWord }: Props) => {
 
       {wordsToday.map((w, i) => (
         <WordLine
-          onClick={() => updateStatusWord(w)}
+          to={`/word/${w.word}`}
           key={w.word}
-          style={{ textDecoration: w.status ? 'line-through' : 'none' }}
+          style={{
+            textDecoration: w.status ? 'line-through' : 'none',
+            color: w.status ? theme.color.primary : theme.color.text
+          }}
         >
           <span>{i + 1}.</span>
           {w.word}

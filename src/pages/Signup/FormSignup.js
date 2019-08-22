@@ -25,21 +25,15 @@ const FormSignup = () => {
     e.preventDefault();
     const { email, password } = values;
 
-    // const errorNew = validate(values);
-
     setLoading(true);
     fireauth
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
         setLoading(false);
-        console.log(res);
       })
       .catch(err => {
         setLoading(false);
-        console.log('err', err);
       });
-
-    console.log('asdasd', values);
   };
 
   const onChange = e => {
