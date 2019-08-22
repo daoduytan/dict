@@ -27,6 +27,19 @@ const Heading = styled.div`
   justify-content: space-between;
   padding: 20px;
   border-bottom: 1px solid ${theme.color.border};
+  background: #f9f9f9;
 `;
 
-export { WordLine, Heading };
+const Button = styled.div`
+  border: 1px solid ${theme.color.border};
+  height: 40px;
+  padding: 0 15px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #fff;
+`;
+
+export { WordLine, Heading, Button };

@@ -1,10 +1,12 @@
 // @flow
 import { lastIndexOf } from 'lodash';
+import arrayWord from '../data';
 
-const generalWord = data => {
+const generalWord = int => {
+  const data = arrayWord;
   const max = data.length;
-  const min = 0;
-  const n = 9;
+  const min = 1;
+  const n = int;
 
   const words = [];
   const getWords = number => {

@@ -1,21 +1,30 @@
 // @flow
 import React, { lazy, Suspense } from 'react';
-import { Router } from '@reach/router';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 
 import { ProviderWordContext } from '../state/wordContext';
-import { Navigation } from '../components';
+import { Loading } from '../components';
+import { ProviderAuthContext } from '../state/authContext';
+import { GuestRouter, UserRouter } from './authRouter';
 
+// auth
+const Signup = lazy(() => import('../pages/Signup'));
 const Homepage = lazy(() => import('../pages/Homepage'));
+const Login = lazy(() => import('../pages/Login'));
 
 const AppRouter = () => {
   return (
-    <ProviderWordContext>
-      <Suspense fallback={<div>loading</div>}>
-        <Router>
-          <Homepage path="/" />
-        </Router>
-      </Suspense>
-    </ProviderWordContext>
+    <ProviderAuthContext>
+      <ProviderWordContext>
+        <Suspense fallback={<Loading />}>
+          <Router basename={process.env.PUBLIC_URL}>
+            <GuestRouter component={Homepage} exact path="/" />
+            <UserRouter path="/sign-up" component={Signup} />
+            <Route path="/login" component={Login} />
+          </Router>
+        </Suspense>
+      </ProviderWordContext>
+    </ProviderAuthContext>
   );
 };
 
