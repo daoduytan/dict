@@ -1,6 +1,5 @@
 // @flow
-import React, { memo } from 'react';
-import Axios from 'axios';
+import React, { memo, useState } from 'react';
 
 import { Icon, Modal, Button } from '../../components';
 
@@ -11,13 +10,18 @@ import icons from '../../assets/icons';
 import FormChangeNumber from './FormChangeNumber';
 import theme from '../../configs/theme';
 
+import { firestore } from '../../api';
+import Tabs from './Tabs';
+
+const ref = firestore.collection('words_today');
+const ref1 = firestore.collection('words_done');
+
 type Props = {
   wordsToday: any,
-  reload: Function,
-  updateStatusWord: Function
+  reload: Function
 };
 
-const Homepage = ({ wordsToday, reload, updateStatusWord }: Props) => {
+const Homepage = ({ wordsToday, reload }: Props) => {
   return (
     <div style={{ padding: 0 }}>
       <Heading>
@@ -71,19 +75,7 @@ const Homepage = ({ wordsToday, reload, updateStatusWord }: Props) => {
         </div>
       </Heading>
 
-      {wordsToday.map((w, i) => (
-        <WordLine
-          to={`/word/${w.word}`}
-          key={w.word}
-          style={{
-            textDecoration: w.status ? 'line-through' : 'none',
-            color: w.status ? theme.color.primary : theme.color.text
-          }}
-        >
-          <span>{i + 1}.</span>
-          {w.word}
-        </WordLine>
-      ))}
+      <Tabs />
     </div>
   );
 };

@@ -25,9 +25,8 @@ const Heading = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
-  border-bottom: 1px solid ${theme.color.border};
-  background: #f9f9f9;
+  padding: 20px 20px 0px;
+  background: #fff;
 `;
 
 const Button = styled.div`

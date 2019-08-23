@@ -9,6 +9,9 @@ import React, {
 
 import { generalWord } from './ultil';
 import { Loading } from '../components';
+import { firestore } from '../api';
+
+const ref = firestore.collection('words_today');
 
 const wordContext = createContext({
   wordsToday: [],
@@ -38,32 +41,85 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
   });
 
   const reload = () => {
-    localStorage.removeItem('words');
-    setWordsToday([]);
+    ref.get().then(snapshot =>
+      snapshot.docs.map(doc => {
+        ref.doc(doc.id).delete();
+        localStorage.removeItem('words');
+        setWordsToday([]);
+      })
+    );
   };
 
   const updateStatusWord = w => {
-    console.log('dada', w);
-
     const newWord = wordsToday.map(word => {
       if (word.word === w) {
+        console.log('dadsa', w);
+
+        ref
+          .where('word', '==', w)
+          .get()
+          .then(snapshot => {
+            console.log('dada');
+            if (snapshot.empty) {
+              return null;
+            }
+
+            snapshot.forEach(doc => {
+              console.log(doc.data());
+
+              ref.doc(doc.id).update({
+                status: !word.status
+              });
+            });
+          });
+
         return { ...word, status: !word.status };
       }
       return word;
     });
 
-    console.log('newWord', newWord);
-
     localStorage.setItem('words', JSON.stringify(newWord));
     setWordsToday(newWord);
   };
 
-  const reloadWord = useCallback(number => {
-    setLoading(true);
-    const words = generalWord(number);
+  const getWordsFromData = () => {
+    return ref
+      .get()
+      .then(snapshot => {
+        const wordsTodayData = snapshot.docs.map(doc => {
+          return { id: doc.id, ...doc.data() };
+        });
+        return wordsTodayData;
+      })
+      .catch(err => {
+        return [];
+      });
+  };
+
+  const setLocalWord = words => {
     localStorage.setItem('words', JSON.stringify(words));
     setWordsToday(words);
     setLoading(false);
+  };
+
+  const reloadWord = useCallback(number => {
+    setLoading(true);
+
+    getWordsFromData().then(async wordsTodayData => {
+      if (wordsTodayData.length === 0) {
+        const words = generalWord(number);
+
+        words.forEach(ele => {
+          return ref.add(ele).then(res => {
+            return { ...ele, id: res.id };
+          });
+        });
+
+        setLocalWord(words);
+      } else {
+        setLocalWord(wordsTodayData);
+      }
+    });
   }, []);
 
   const handleChangeNumber = number => {
@@ -74,6 +130,7 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
   };
 
   useEffect(() => {
+    // getWordsFromData();
     if (wordsToday.length === 0) {
       reloadWord(numberWord);
     } else {

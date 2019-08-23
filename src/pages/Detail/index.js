@@ -53,6 +53,8 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
     return true;
   };
 
+  const isWordsToday = !!find(w => w.word === params.w, wordsToday);
+
   return (
     <DetailWrap>
       <Heading>
@@ -111,14 +113,16 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
           );
         })}
 
-        <Button
-          type="primary"
-          block
-          size="large"
-          onClick={() => updateStatusWord(params.w)}
-        >
-          {isDone() ? <Icon icon={icons.check} color="#fff" /> : 'Done'}
-        </Button>
+        {isWordsToday && (
+          <Button
+            type="primary"
+            block
+            size="large"
+            onClick={() => updateStatusWord(params.w)}
+          >
+            {isDone() ? <Icon icon={icons.check} color="#fff" /> : 'Done'}
+          </Button>
+        )}
       </DetailContent>
     </DetailWrap>
   );
