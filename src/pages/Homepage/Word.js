@@ -5,8 +5,9 @@ import icons from '../../assets/icons';
 import { firestore } from '../../api';
 import theme from '../../configs/theme';
 import { WordLine } from './style';
+import connect from '../../state/connect';
 
-const ref = firestore.collection('words_today');
+const ref = firestore.collection('user');
 const ref1 = firestore.collection('words_done');
 
 type WordProps = {
@@ -16,13 +17,18 @@ type WordProps = {
     number: Number,
     id: String
   },
+  user: {
+    uid: String
+  },
   type: String
 };
 
-const Word = ({ word, type }: WordProps) => {
-  console.log(word, type);
-
+const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
   const [w, setW] = useState(word);
+
+  const { uid } = user;
+
+  console.log('user', uid);
 
   const handleChangeType = () => {
     const newType = () => {
@@ -39,9 +45,9 @@ const Word = ({ word, type }: WordProps) => {
       return 'day';
     };
 
-    // console.log('dadas', newType(), w);
-
     ref
+      .doc(uid)
+      .collection('word_today')
       .where('word', '==', w.word)
       .get()
       .then(snapshot => {
@@ -50,17 +56,21 @@ const Word = ({ word, type }: WordProps) => {
         }
 
         snapshot.forEach(doc => {
-          console.log(doc.data());
-
-          ref.doc(doc.id).update({
-            type: newType()
-          });
+          ref
+            .doc(uid)
+            .collection('word_today')
+            .doc(doc.id)
+            .update({
+              type: newType()
+            });
         });
       });
 
     setW({ ...w, type: newType() });
 
-    ref1.add({ ...word, type: newType() });
+    updateTypeDate({ ...w, type: newType() });
+
+    ref1.add({ ...word, uid, type: newType() });
   };
 
   return (
@@ -114,4 +124,12 @@ const Word = ({ word, type }: WordProps) => {
   );
 };
 
-export default Word;
+const select = [
+  { values: ['user'], context: 'authContext' },
+  {
+    values: ['updateTypeDate'],
+    context: 'wordContext'
+  }
+];
+
+export default connect(select)(Word);

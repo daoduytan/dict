@@ -1,3 +1,5 @@
+import React from 'react';
+
 import styled from 'styled-components';
 import theme from '../../configs/theme';
 
@@ -10,7 +12,7 @@ const color = type => (type === 'primary' ? '#fff' : '#000');
 const colorBorder = type =>
   type === 'primary' ? theme.color.primary : theme.color.border;
 
-const Button = styled.button`
+const ButtonWrap = styled.button`
   display: ${({ block }) => display(block)};
   width: ${({ block }) => width(block)};
   padding: ${({ size }) => padding(size)};
@@ -24,5 +26,9 @@ const Button = styled.button`
   font-weight: 700;
   cursor: pointer;
 `;
+
+const Button = ({ children, loading, ...props }) => {
+  return <ButtonWrap {...props}>{loading ? 'Loading' : children} </ButtonWrap>;
+};
 
 export { Button as default };

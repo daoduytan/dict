@@ -1,13 +1,12 @@
 // @flow
 import React, { useState } from 'react';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react';
 
 import { Link } from 'react-router-dom';
 
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-
 import { fireauth } from '../../api';
 import connect from '../../state/connect';
+import { Input, Button } from '../../components';
+import theme from '../../configs/theme';
 
 const FormLogin = ({ setAuth }) => {
   const [loading, setLoading] = useState(false);
@@ -17,14 +16,12 @@ const FormLogin = ({ setAuth }) => {
     password: ''
   });
 
-  const validate = values => {
+  const validate = () => {
     const errorValidate = {};
     const { email, password } = values;
     if (email.length === 0) errorValidate.email = 'Required';
     if (password.length === 0) errorValidate.password = 'Required';
     if (password.length < 8) errorValidate.password = 'Password 8 letter';
-
-    console.log('34342');
 
     return errorValidate;
   };
@@ -34,7 +31,7 @@ const FormLogin = ({ setAuth }) => {
     const { email, password } = values;
     setLoading(true);
 
-    const getError = validate(values);
+    const getError = validate();
 
     if (Object.keys(getError).length > 0) {
       setError(getError);
@@ -55,52 +52,68 @@ const FormLogin = ({ setAuth }) => {
 
   const onChange = e => {
     const newValues = { ...values, [e.target.name]: e.target.value };
+
+    const newError = { ...error, [e.target.name]: '' };
+    setError(newError);
+
     setValues(newValues);
   };
 
   const { email, password } = values;
 
-  console.log('dasdaas');
-
   return (
     <form onSubmit={handleSubmit}>
-      <TextField
-        placeholder="Your email"
-        type="text"
-        name="email"
-        value={email}
-        onChange={onChange}
-        label="Email"
-        errorMessage={error.email}
-        iconProps={{ iconName: 'Calendar' }}
-        required
-      />
+      <div>
+        <Input
+          placeholder="Your email"
+          type="email"
+          name="email"
+          size="large"
+          block
+          onChange={onChange}
+          value={email}
+          label="Email"
+        />
+      </div>
+      {error.email && <div>{error.email}</div>}
+      <div style={{ margin: `${theme.size.space}px 0` }}>
+        <Input
+          type="password"
+          name="password"
+          onChange={onChange}
+          size="large"
+          value={password}
+          block
+          label="Password"
+          placeholder="Your password"
+        />
 
-      <div style={{ marginBottom: 30 }} />
+        {error.password && <div>{error.password}</div>}
+      </div>
 
-      <TextField
-        placeholder="Your password"
-        type="password"
-        name="password"
-        value={password}
-        onChange={onChange}
-        label="Password"
-        errorMessage={error.password}
-        iconProps={{ iconName: 'Calendar' }}
-        required
-      />
-      <div style={{ marginBottom: 30 }} />
-
-      <PrimaryButton
-        type="submit"
-        style={{ width: '100%', marginBottom: 15 }}
-        htmlType="submit"
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gridGap: theme.size.space
+        }}
       >
-        {loading ? 'Loading' : 'Login'}
-      </PrimaryButton>
-      <Link to="/sign-up">
-        <DefaultButton style={{ width: '100%' }}>Sign up</DefaultButton>
-      </Link>
+        <Button
+          htmlType="submit"
+          type="primary"
+          block
+          size="large"
+          loading={loading}
+        >
+          Sunmit
+        </Button>
+
+        <Link to="/sign-up">
+          <Button block size="large">
+            Sign up
+          </Button>
+        </Link>
+      </div>
     </form>
   );
 };

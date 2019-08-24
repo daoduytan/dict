@@ -1,27 +1,22 @@
 // @flow
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 
 import { Icon, Modal, Button } from '../../components';
 
 import connect from '../../state/connect';
 
-import { WordLine, Heading, Button as ButtonHome } from './style';
+import { Heading, Button as ButtonHome } from './style';
 import icons from '../../assets/icons';
 import FormChangeNumber from './FormChangeNumber';
 import theme from '../../configs/theme';
 
-import { firestore } from '../../api';
 import Tabs from './Tabs';
 
-const ref = firestore.collection('words_today');
-const ref1 = firestore.collection('words_done');
-
 type Props = {
-  wordsToday: any,
   reload: Function
 };
 
-const Homepage = ({ wordsToday, reload }: Props) => {
+const Homepage = ({ reload }: Props) => {
   return (
     <div style={{ padding: 0 }}>
       <Heading>

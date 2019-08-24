@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { pick } from 'lodash/fp';
 import { fireauth } from '../api';
 
 const useAuth = () => {
@@ -10,8 +11,13 @@ const useAuth = () => {
 
   useEffect(() => {
     setLoading(true);
-    fireauth.onAuthStateChanged(user => {
-      if (user) {
+    fireauth.onAuthStateChanged(res => {
+      console.log('dasdadaadas', res);
+      if (res) {
+        const user = pick(
+          ['displayName', 'phoneNumber', 'email', 'photoURL', 'uid'],
+          res
+        );
         setAuth({
           user,
           isAuth: true

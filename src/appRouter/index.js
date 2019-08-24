@@ -22,7 +22,7 @@ const AppRouter = () => {
             <GuestRouter component={Homepage} exact path="/" />
             <GuestRouter component={Detail} exact path="/word/:w" />
             <UserRouter path="/sign-up" component={Signup} />
-            <Route path="/login" component={Login} />
+            <UserRouter path="/login" component={Login} />
           </Router>
         </Suspense>
       </ProviderWordContext>

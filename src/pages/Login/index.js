@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from '@uifabric/react-cards';
 import FormLogin from './FormLogin';
+import theme from '../../configs/theme';
 
 const Login = () => {
   return (
@@ -10,14 +11,14 @@ const Login = () => {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
-        padding: 15
+        padding: theme.size.space
       }}
     >
       <Card
         style={{
           width: '100%',
           maxWidth: 400,
-          padding: 15,
+          padding: theme.size.space * 2,
           background: '#fff'
         }}
         title="Login"

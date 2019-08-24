@@ -24,6 +24,7 @@ type DetailProps = {
       w: String
     }
   },
+  wordsToday: any,
   updateStatusWord: Function
 };
 
@@ -53,7 +54,21 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
     return true;
   };
 
-  const isWordsToday = !!find(w => w.word === params.w, wordsToday);
+  const checkWord = () => {
+    const word = find(w => w.word === params.w, wordsToday);
+
+    console.log('dadas', word);
+
+    if (!word) {
+      return false;
+    }
+
+    if (word.type && word.type !== 'today') {
+      return false;
+    }
+
+    return true;
+  };
 
   return (
     <DetailWrap>
@@ -113,7 +128,7 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
           );
         })}
 
-        {isWordsToday && (
+        {checkWord() && (
           <Button
             type="primary"
             block

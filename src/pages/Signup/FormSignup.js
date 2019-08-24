@@ -1,15 +1,15 @@
 // @flow
 import React, { useState } from 'react';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react';
-import { Formik } from 'formik';
 
 import { Link } from 'react-router-dom';
 
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-
 import { fireauth } from '../../api';
+import { Input, Button, Message } from '../../components';
+import theme from '../../configs/theme';
 
-const FormSignup = () => {
+type FormSignupProps = { setAuth: Function };
+
+const FormSignup = ({ setAuth }: FormSignupProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
   const [values, setValues] = useState({
@@ -17,23 +17,38 @@ const FormSignup = () => {
     password: ''
   });
 
-  const validate = value => {
-    // if()
-  };
+  const validate = () => {
+    const errorValidate = {};
+    const { email, password } = values;
+    if (email.length === 0) errorValidate.email = 'Required';
+    if (password.length === 0) errorValidate.password = 'Required';
+    if (password.length < 8) errorValidate.password = 'Password 8 letter';
 
+    return errorValidate;
+  };
   const handleSubmit = e => {
     e.preventDefault();
     const { email, password } = values;
 
     setLoading(true);
-    fireauth
-      .createUserWithEmailAndPassword(email, password)
-      .then(res => {
-        setLoading(false);
-      })
-      .catch(err => {
-        setLoading(false);
-      });
+
+    const getError = validate();
+
+    if (Object.keys(getError).length > 0) {
+      setError(getError);
+      setLoading(false);
+    } else {
+      fireauth
+        .createUserWithEmailAndPassword(email, password)
+        .then(res => {
+          setLoading(false);
+          setAuth({ user: res, isAuth: true });
+        })
+        .catch(err => {
+          setLoading(false);
+          console.log('err', err);
+        });
+    }
   };
 
   const onChange = e => {
@@ -45,37 +60,59 @@ const FormSignup = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextField
-        placeholder="Your email"
-        type="email"
-        name="email"
-        value={email}
-        onChange={onChange}
-        label="Email"
-        iconProps={{ iconName: 'Calendar' }}
-        required
-      />
+      <div>
+        <Input
+          placeholder="Your email"
+          type="email"
+          name="email"
+          size="large"
+          block
+          onChange={onChange}
+          value={email}
+          label="Email"
+          error={!!error.email}
+        />
+      </div>
+      {error.email && <Message>{error.email}</Message>}
+      <div style={{ margin: `${theme.size.space * 2}px 0` }}>
+        <Input
+          type="password"
+          name="password"
+          onChange={onChange}
+          size="large"
+          value={password}
+          block
+          label="Password"
+          placeholder="Your password"
+          error={!!error.password}
+        />
 
-      <div style={{ marginBottom: 30 }} />
+        {error.password && <div>{error.password}</div>}
+      </div>
 
-      <TextField
-        placeholder="Your password"
-        type="password"
-        name="password"
-        value={password}
-        onChange={onChange}
-        label="Password"
-        iconProps={{ iconName: 'Calendar' }}
-        required
-      />
-      <div style={{ marginBottom: 30 }} />
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gridGap: theme.size.space
+        }}
+      >
+        <Button
+          htmlType="submit"
+          type="primary"
+          block
+          size="large"
+          loading={loading}
+        >
+          Sunmit
+        </Button>
 
-      <PrimaryButton type="submit" style={{ width: '100%', marginBottom: 15 }}>
-        {loading ? 'Loading' : 'Submit'}
-      </PrimaryButton>
-      <Link to="/login">
-        <DefaultButton style={{ width: '100%' }}>Login</DefaultButton>
-      </Link>
+        <Link to="/sign-up">
+          <Button block size="large">
+            Sign up
+          </Button>
+        </Link>
+      </div>
     </form>
   );
 };
