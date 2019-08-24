@@ -7,9 +7,7 @@ import { fireauth } from '../../api';
 import { Input, Button, Message } from '../../components';
 import theme from '../../configs/theme';
 
-type FormSignupProps = { setAuth: Function };
-
-const FormSignup = ({ setAuth }: FormSignupProps) => {
+const FormSignup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
   const [values, setValues] = useState({
@@ -42,7 +40,6 @@ const FormSignup = ({ setAuth }: FormSignupProps) => {
         .createUserWithEmailAndPassword(email, password)
         .then(res => {
           setLoading(false);
-          setAuth({ user: res, isAuth: true });
         })
         .catch(err => {
           setLoading(false);

@@ -4,11 +4,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { fireauth } from '../../api';
-import connect from '../../state/connect';
 import { Input, Button } from '../../components';
 import theme from '../../configs/theme';
 
-const FormLogin = ({ setAuth }) => {
+const FormLogin = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
   const [values, setValues] = useState({
@@ -41,7 +40,6 @@ const FormLogin = ({ setAuth }) => {
         .signInWithEmailAndPassword(email, password)
         .then(res => {
           setLoading(false);
-          setAuth({ user: res, isAuth: true });
         })
         .catch(err => {
           setLoading(false);
@@ -118,6 +116,4 @@ const FormLogin = ({ setAuth }) => {
   );
 };
 
-const select = [{ values: ['setAuth'], context: 'authContext' }];
-
-export default connect(select)(FormLogin);
+export default FormLogin;

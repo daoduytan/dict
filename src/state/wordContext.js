@@ -30,8 +30,6 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
   const [loading, setLoading] = useState(true);
   const { user, isAuth } = useContext(authContext);
 
-  const { uid } = user;
-
   const [numberWord, setNumberWord] = useState(() => {
     const number = localStorage.getItem('number');
     if (number === null) {
@@ -46,46 +44,57 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
   });
 
   const reload = () => {
-    ref.get().then(snapshot =>
-      snapshot.docs.map(doc => {
-        ref.doc(doc.id).delete();
-        localStorage.removeItem('words');
-        setWordsToday([]);
-      })
-    );
+    if (user) {
+      const { uid } = user;
+      ref
+        .doc(uid)
+        .collection('word_today')
+        .get()
+        .then(snapshot =>
+          snapshot.docs.map(doc => {
+            ref.doc(doc.id).delete();
+            localStorage.removeItem('words');
+            setWordsToday([]);
+          })
+        );
+    }
   };
 
   const updateStatusWord = w => {
-    const newWord = wordsToday.map(word => {
-      if (word.word === w) {
-        ref
-          .doc(uid)
-          .collection('word_today')
-          .where('word', '==', w)
-          .get()
-          .then(snapshot => {
-            if (snapshot.empty) {
-              return null;
-            }
+    if (user) {
+      const { uid } = user;
 
-            snapshot.forEach(doc => {
-              ref
-                .doc(uid)
-                .collection('word_today')
-                .doc(doc.id)
-                .update({
-                  status: !word.status
-                });
+      const newWord = wordsToday.map(word => {
+        if (word.word === w) {
+          ref
+            .doc(uid)
+            .collection('word_today')
+            .where('word', '==', w)
+            .get()
+            .then(snapshot => {
+              if (snapshot.empty) {
+                return null;
+              }
+
+              snapshot.forEach(doc => {
+                ref
+                  .doc(uid)
+                  .collection('word_today')
+                  .doc(doc.id)
+                  .update({
+                    status: !word.status
+                  });
+              });
             });
-          });
 
-        return { ...word, day: Date.now(), status: !word.status };
-      }
-      return word;
-    });
+          return { ...word, day: Date.now(), status: !word.status };
+        }
+        return word;
+      });
 
-    localStorage.setItem('words', JSON.stringify(newWord));
-    setWordsToday(newWord);
+      localStorage.setItem('words', JSON.stringify(newWord));
+      setWordsToday(newWord);
+    }
   };
 
   const updateTypeDate = w => {
@@ -101,6 +110,11 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
   };
 
   const getWordsFromData = useCallback(() => {
+    if (!user) return [];
+    const { uid } = user;
+
+    console.log('user', user);
+
     return ref
       .doc(uid)
       .collection('word_today')
@@ -114,7 +128,7 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
       .catch(err => {
         return [];
       });
-  }, [uid]);
+  }, [user]);
 
   const setLocalWord = words => {
     localStorage.setItem('words', JSON.stringify(words));
@@ -126,7 +140,11 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
     number => {
       setLoading(true);
 
-      getWordsFromData().then(async wordsTodayData => {
+      if (!user) return setLoading(false);
+
+      const { uid } = user;
+
+      return getWordsFromData().then(async wordsTodayData => {
         if (wordsTodayData.length === 0) {
           const words = generalWord(number);
 
@@ -140,13 +158,12 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
               });
           });
 
-          setLocalWord(words);
-        } else {
-          setLocalWord(wordsTodayData);
+          return setLocalWord(words);
         }
+        return setLocalWord(wordsTodayData);
       });
     },
-    [getWordsFromData, uid]
+    [getWordsFromData, user]
   );
 
   const handleChangeNumber = number => {
