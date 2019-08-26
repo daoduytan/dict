@@ -21,12 +21,14 @@ const WordLine = styled(Link)`
   }
 `;
 
-const Heading = styled.div`
+const HeadingWrap = styled.div`
+  // background: ${theme.color.primary};
+  // color: #fff;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 20px 20px 0px;
-  background: #fff;
+  align-items: center;
+  padding: ${theme.size.space + 5}px ${theme.size.space * 2}px
+    ${theme.size.space - 5}px ${theme.size.space * 2}px;
 `;
 
 const Button = styled.div`
@@ -41,4 +43,4 @@ const Button = styled.div`
   background: #fff;
 `;
 
-export { WordLine, Heading, Button };
+export { WordLine, HeadingWrap, Button };
