@@ -56,9 +56,6 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
 
   const checkWord = () => {
     const word = find(w => w.word === params.w, wordsToday);
-
-    console.log('dadas', word);
-
     if (!word) {
       return false;
     }
@@ -76,10 +73,21 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
         <Link to="/">
           <Icon icon={icons.back} size={20} />
         </Link>
-        {params.w && (
-          <div style={{ marginLeft: 15, fontWeight: 700 }}>{params.w}</div>
-        )}
       </Heading>
+      {params.w && (
+        <div
+          style={{
+            textAlign: 'center',
+            fontSize: 30,
+            fontWeight: 400,
+            fontFamily: theme.font.family.secondary,
+            margin: `${theme.size.space}px 0 ${theme.size.space * 2}px`
+          }}
+        >
+          {params.w}
+        </div>
+      )}
+
       <DetailContent>
         {data.map(d => {
           return (

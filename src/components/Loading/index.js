@@ -1,12 +1,16 @@
 import React from 'react';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-
 import { LoadingWrap } from './style';
+
+import { loading } from '../../assets/images';
 
 const Loading = () => {
   return (
     <LoadingWrap>
-      <Spinner size={SpinnerSize.large} />
+      <img
+        src={loading}
+        alt="loading"
+        style={{ display: 'block', width: '100%' }}
+      />
     </LoadingWrap>
   );
 };

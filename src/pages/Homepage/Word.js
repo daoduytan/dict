@@ -32,7 +32,7 @@ const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
 
   const handleChangeType = () => {
     const newType = () => {
-      if (word === 'today') {
+      if (type === 'today') {
         return 'day';
       }
       if (type === 'day') {
@@ -55,6 +55,8 @@ const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
           return null;
         }
 
+        console.log('dasdas');
+
         snapshot.forEach(doc => {
           ref
             .doc(uid)
@@ -70,7 +72,25 @@ const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
 
     updateTypeDate({ ...w, type: newType() });
 
-    ref1.add({ ...word, uid, type: newType() });
+    if (type === 'today') {
+      ref1.add({ ...word, uid, type: newType() });
+    } else {
+      ref1
+
+        .where('uid', '==', user.uid)
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            return null;
+          }
+
+          snapshot.forEach(doc => {
+            ref1.doc(doc.id).update({
+              type: newType()
+            });
+          });
+        });
+    }
   };
 
   return (
@@ -79,7 +99,6 @@ const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
         to={`/word/${w.word}`}
         key={w.word}
         style={{
-          textDecoration: w.status ? 'line-through' : 'none',
           color: w.status ? theme.color.primary : theme.color.text
         }}
       >
@@ -103,7 +122,7 @@ const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
         </div>
       )}
 
-      {w.status && w.type === type && (
+      {w.status && w.type === type && w.type !== 'month' && (
         <div
           onClick={handleChangeType}
           style={{

@@ -13,12 +13,16 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${theme.font.family.primary};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    // background: #f9f9f9;
   }
 
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
       monospace;
+  }
+
+  a {
+    color: ${theme.color.text};
+    text-decoration: none;
   }
 `;
 

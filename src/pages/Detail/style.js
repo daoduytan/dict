@@ -8,17 +8,16 @@ const DetailWrap = styled.div`
 const Heading = styled.div`
   display: flex;
   alignitems: center;
-  padding: 15px;
+  padding: ${theme.size.space * 2}px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   background: #fff;
-  border: 1px solid #eee;
 `;
 
 const DetailContent = styled.div`
-  padding: 15px;
+  padding: ${theme.size.space}px ${theme.size.space * 2}px;
 `;
 
 const CardStyle = styled.div`

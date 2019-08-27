@@ -16,18 +16,11 @@ const Signup = () => {
         padding: 15
       }}
     >
-      <Card
-        style={{
-          padding: 15,
-          width: '100%',
-          maxWidth: 400,
-          background: '#fff'
-        }}
-      >
-        <h2>Sign up</h2>
+      <div style={{ width: '90%', maxWidth: 350 }}>
+        <h2 style={{ marginBottom: 30 }}>Sign up</h2>
 
         <FormSignup />
-      </Card>
+      </div>
     </div>
   );
 };

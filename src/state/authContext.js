@@ -18,11 +18,14 @@ type ProviderAuthContextProps = { children: Node };
 const ProviderAuthContext = ({ children }: ProviderAuthContextProps) => {
   const [loading, auth, setAuth] = useAuth();
 
+  const logout = () => {
+    setAuth({ user: null, auth: false });
+    fireauth.signOut();
+  };
+
   if (loading) return <Loading />;
 
-  console.log(auth);
-
-  return <Provider value={{ ...auth, setAuth }}>{children}</Provider>;
+  return <Provider value={{ ...auth, setAuth, logout }}>{children}</Provider>;
 };
 
 export { ProviderAuthContext, authContext as default };

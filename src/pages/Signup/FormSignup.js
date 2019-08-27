@@ -84,7 +84,7 @@ const FormSignup = () => {
           error={!!error.password}
         />
 
-        {error.password && <div>{error.password}</div>}
+        {error.password && <Message>{error.password}</Message>}
       </div>
 
       <div
@@ -101,12 +101,12 @@ const FormSignup = () => {
           size="large"
           loading={loading}
         >
-          Sunmit
+          Submit
         </Button>
 
-        <Link to="/sign-up">
+        <Link to="/login">
           <Button block size="large">
-            Sign up
+            Login
           </Button>
         </Link>
       </div>

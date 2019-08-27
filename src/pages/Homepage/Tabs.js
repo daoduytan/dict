@@ -6,6 +6,10 @@ import connect from '../../state/connect';
 import Word from './Word';
 import theme from '../../configs/theme';
 
+import TabDay from './TabDay';
+import TabWeek from './TabWeek';
+import TabMonth from './TabMonth';
+
 const TabHeadingStyle = styled.div`
   flex: 1;
   padding: 15px 10px;
@@ -57,13 +61,6 @@ const TabToday = connect(select)(({ wordsToday }) =>
   ))
 );
 
-const TabDay = () => {
-  return <div>TabDay</div>;
-};
-const TabWeek = () => <div>TabWeek</div>;
-
-const TabMonth = () => <div>TabMonth</div>;
-
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState(1);
 
@@ -77,7 +74,7 @@ const Tabs = () => {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
-          borderBottom: '1px solid #eee',
+          borderBottom: '1px solid #ddd',
           background: '#fff'
         }}
       >

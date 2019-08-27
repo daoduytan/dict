@@ -29,6 +29,7 @@ const HeadingWrap = styled.div`
   align-items: center;
   padding: ${theme.size.space + 5}px ${theme.size.space * 2}px
     ${theme.size.space - 5}px ${theme.size.space * 2}px;
+    
 `;
 
 const Button = styled.div`

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { fireauth } from '../../api';
-import { Input, Button } from '../../components';
+import { Input, Button, Message } from '../../components';
 import theme from '../../configs/theme';
 
 const FormLogin = () => {
@@ -31,6 +31,8 @@ const FormLogin = () => {
     setLoading(true);
 
     const getError = validate();
+
+    console.log('dadas', getError);
 
     if (Object.keys(getError).length > 0) {
       setError(getError);
@@ -72,9 +74,10 @@ const FormLogin = () => {
           value={email}
           label="Email"
         />
+        {error.email && <Message>{error.email}</Message>}
       </div>
-      {error.email && <div>{error.email}</div>}
-      <div style={{ margin: `${theme.size.space}px 0` }}>
+
+      <div style={{ margin: `${theme.size.space * 2}px 0` }}>
         <Input
           type="password"
           name="password"
@@ -86,7 +89,7 @@ const FormLogin = () => {
           placeholder="Your password"
         />
 
-        {error.password && <div>{error.password}</div>}
+        {error.password && <Message>{error.password}</Message>}
       </div>
 
       <div
@@ -103,12 +106,12 @@ const FormLogin = () => {
           size="large"
           loading={loading}
         >
-          Sunmit
+          Submit
         </Button>
 
         <Link to="/sign-up">
           <Button block size="large">
-            Sign up
+            Signup
           </Button>
         </Link>
       </div>

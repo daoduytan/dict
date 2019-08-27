@@ -30,6 +30,8 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
   const [loading, setLoading] = useState(true);
   const { user, isAuth } = useContext(authContext);
 
+  const [words_done, setWordDone] = useState([]);
+
   const [numberWord, setNumberWord] = useState(() => {
     const number = localStorage.getItem('number');
     if (number === null) {
@@ -113,8 +115,6 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
     if (!user) return [];
     const { uid } = user;
 
-    console.log('user', user);
-
     return ref
       .doc(uid)
       .collection('word_today')
@@ -181,6 +181,24 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
     }
   }, [wordsToday.length, numberWord, reloadWord, isAuth]);
 
+  useEffect(() => {
+    if (user) {
+      const { uid } = user;
+      firestore
+        .collection('words_done')
+        .where('uid', '==', uid)
+        .onSnapshot(docSnapshot => {
+          const wordsDone = [];
+
+          docSnapshot.forEach(docs => wordsDone.push(docs.data()));
+
+          console.log(wordsDone);
+
+          setWordDone(wordsDone);
+        });
+    }
+  }, [user]);
+
   if (loading) return <Loading />;
 
   return (
@@ -191,7 +209,8 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
         updateStatusWord,
         numberWord,
         handleChangeNumber,
-        updateTypeDate
+        updateTypeDate,
+        words_done
       }}
     >
       {children}

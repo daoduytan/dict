@@ -2,25 +2,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Avatar, Icon } from '../../components';
+import { Avatar, Icon, Button } from '../../components';
 import connect from '../../state/connect';
 import theme from '../../configs/theme';
 import icons from '../../assets/icons';
 
 const BoxStyle = styled.div`
-  margin: 0 ${theme.size.space * 2}px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  // margin: 0 ${theme.size.space * 2}px;
+  // box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  // border-radius: 5px
   overflow: hidden;
-  border: 1px solid ${theme.color.border};
+  // border: 1px solid ${theme.color.border};
 `;
 
 const TitleStyle = styled.div`
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: #999;
-  padding: 0 ${theme.size.space * 2}px ${theme.size.space}px;
+  font-weight: 700;
+  // padding: 0 ${theme.size.space * 2}px ${theme.size.space}px;
 `;
 
 const RowLine = styled.div`
@@ -28,47 +25,75 @@ const RowLine = styled.div`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid ${theme.color.border};
-  padding: ${theme.size.space}px;
+  padding: ${theme.size.space * 1.5}px ${theme.size.space * 2}px;
 
   .label {
-    text-transform: uppercase;
     color: #999;
-    font-size: 12px;
     font-weight: 600;
+  }
+
+  span:last-child {
+    font-family: ${theme.font.family.secondary};
   }
 `;
 
 type ProfileProps = {
   user: {
     displayName: String
-  }
+  },
+  logout: Function
 };
 
-const Profile = ({ user }: ProfileProps) => {
+const Profile = ({ user, logout }: ProfileProps) => {
   return (
     <>
-      <Link to="/">
-        <div style={{ padding: '20px 30px', display: 'inline-block' }}>
-          <Icon icon={icons.back} />
-        </div>
-      </Link>
+      <div>
+        <Link to="/">
+          <div style={{ padding: '20px 30px', display: 'inline-block' }}>
+            <Icon icon={icons.back} />
+          </div>
+        </Link>
+      </div>
 
       <div
         style={{
-          height: 120,
+          minHeight: 150,
+          paddingBottom: 30,
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          borderBottom: `1px solid ${theme.color.border}`
         }}
       >
-        <Avatar size={70} />
-        <div>{user.displayName}</div>
+        <div style={{ marginBottom: 30 }}>
+          <Avatar size={100} />
+          <div>{user.displayName}</div>
+        </div>
+        <div
+          style={{
+            padding: '10px 15px',
+            borderRadius: 30,
+            background: theme.color.primary,
+            color: '#fff',
+            fontWeight: 700,
+            fontSize: 14
+          }}
+        >
+          <div>70 words learned</div>
+        </div>
       </div>
       <div>
-        <TitleStyle>Profile</TitleStyle>
-
         <BoxStyle>
+          <Link to="edit-profile">
+            <RowLine style={{ background: '#f9f9f9' }}>
+              <TitleStyle>Profile</TitleStyle>
+              <div>
+                <Icon icon={icons.right} size={16} />
+              </div>
+            </RowLine>
+          </Link>
+
           <RowLine>
             <span className="label">Display name</span>
             <span>{user.displayName}</span>
@@ -80,21 +105,31 @@ const Profile = ({ user }: ProfileProps) => {
           </RowLine>
         </BoxStyle>
 
-        <div style={{ marginTop: 50 }}></div>
-
-        <TitleStyle>Setting</TitleStyle>
-
         <BoxStyle>
+          <Link to="edit-word">
+            <RowLine style={{ background: '#f9f9f9' }}>
+              <TitleStyle>Setting</TitleStyle>
+              <div>
+                <Icon icon={icons.right} size={16} />
+              </div>
+            </RowLine>
+          </Link>
           <RowLine>
             <span className="label">Number word</span>
             <span>10</span>
           </RowLine>
         </BoxStyle>
+
+        <div style={{ margin: theme.size.space * 2 }}>
+          <Button block size="large" onClick={logout}>
+            Log out
+          </Button>
+        </div>
       </div>
     </>
   );
 };
 
-const select = [{ values: ['user'], context: 'authContext' }];
+const select = [{ values: ['user', 'logout'], context: 'authContext' }];
 
 export default connect(select)(Profile);
