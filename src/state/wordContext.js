@@ -54,9 +54,13 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
         .get()
         .then(snapshot =>
           snapshot.docs.map(doc => {
-            ref.doc(doc.id).delete();
+            ref
+              .doc(uid)
+              .collection('word_today')
+              .doc(doc.id)
+              .delete();
             localStorage.removeItem('words');
-            setWordsToday([]);
+            return setWordsToday([]);
           })
         );
     }
@@ -78,7 +82,7 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
                 return null;
               }
 
-              snapshot.forEach(doc => {
+              return snapshot.forEach(doc => {
                 ref
                   .doc(uid)
                   .collection('word_today')
@@ -125,7 +129,7 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
         });
         return wordsTodayData;
       })
-      .catch(err => {
+      .catch(() => {
         return [];
       });
   }, [user]);
@@ -191,9 +195,6 @@ const ProviderWordContext = ({ children }: ProviderWordContextProps) => {
           const wordsDone = [];
 
           docSnapshot.forEach(docs => wordsDone.push(docs.data()));
-
-          console.log(wordsDone);
-
           setWordDone(wordsDone);
         });
     }

@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { find } from 'lodash/fp';
 
 import Axios from 'axios';
-import { Link } from 'react-router-dom';
 import { Icon, Loading, Button } from '../../components';
 import icons from '../../assets/icons';
 
 import {
   DetailWrap,
-  Heading,
   DetailContent,
   CardStyle,
   CarTitleStyle,
@@ -17,6 +15,7 @@ import {
 } from './style';
 import theme from '../../configs/theme';
 import connect from '../../state/connect';
+import HeadingScreen from '../../components/HeadingScreen';
 
 type DetailProps = {
   match: {
@@ -68,86 +67,84 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
   };
 
   return (
-    <DetailWrap>
-      <Heading>
-        <Link to="/">
-          <Icon icon={icons.back} size={20} />
-        </Link>
-      </Heading>
-      {params.w && (
-        <div
-          style={{
-            textAlign: 'center',
-            fontSize: 30,
-            fontWeight: 400,
-            fontFamily: theme.font.family.secondary,
-            margin: `${theme.size.space}px 0 ${theme.size.space * 2}px`
-          }}
-        >
-          {params.w}
-        </div>
-      )}
+    <>
+      <HeadingScreen title="" />
+      <DetailWrap>
+        {params.w && (
+          <div
+            style={{
+              textAlign: 'center',
+              fontSize: 40,
+              fontWeight: 700,
+              fontFamily: theme.font.family.secondary,
+              margin: `${theme.size.space}px 0 ${theme.size.space * 2}px`
+            }}
+          >
+            {params.w}
+          </div>
+        )}
 
-      <DetailContent>
-        {data.map(d => {
-          return (
-            <CardStyle key={d.pron}>
-              <CarTitleStyle>{d.title}</CarTitleStyle>
-              <CardTitleSubStyle>
-                {d.posgram.map(p => (
-                  <span key={p}>{p}</span>
-                ))}
+        <DetailContent>
+          {data.map(d => {
+            return (
+              <CardStyle key={d.pron}>
+                <CarTitleStyle>{d.title}</CarTitleStyle>
+                <CardTitleSubStyle>
+                  {d.posgram.map(p => (
+                    <span key={p}>{p}</span>
+                  ))}
 
-                <span style={{ marginLeft: 10 }}>{d.pron}</span>
-              </CardTitleSubStyle>
-              {d.content.map((c, l) => (
-                <div key={c.def} style={{ margin: '15px 0', display: 'flex' }}>
-                  <NumberStyle>{l + 1}</NumberStyle>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 700, lineHeight: 1.3 }}>
-                      {c.def}
-                    </div>
-                    <div
-                      style={{
-                        margin: '10px 0',
-                        color: theme.color.primary,
-                        fontWeight: 700
-                      }}
-                    >
-                      {c.trans}
-                    </div>
-                    <div>
-                      <b style={{ margin: '15px 0', display: 'block' }}>
-                        <small>Example:</small>
-                      </b>
-                      {c.examp.map((ex, i) => (
-                        <div
-                          style={{ marginBottom: 10, fontSize: 14 }}
-                          key={ex}
-                        >
-                          {`${i + 1}. ${ex}`}
-                        </div>
-                      ))}
+                  <span style={{ marginLeft: 10 }}>{d.pron}</span>
+                </CardTitleSubStyle>
+                {d.content.map((c, l) => (
+                  <div
+                    key={c.def}
+                    style={{ margin: '15px 0', display: 'flex' }}
+                  >
+                    <NumberStyle>{l + 1}</NumberStyle>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontWeight: 700, lineHeight: 1.3 }}>
+                        {c.def}
+                      </div>
+                      <div
+                        style={{
+                          margin: '10px 0',
+                          color: theme.color.primary,
+                          fontWeight: 700
+                        }}
+                      >
+                        {c.trans}
+                      </div>
+                      <div>
+                        <b style={{ margin: '15px 0', display: 'block' }}>
+                          <small>Example:</small>
+                        </b>
+                        {c.examp.map((ex, i) => (
+                          <div style={{ marginBottom: 10 }} key={ex}>
+                            {`${i + 1}. ${ex}`}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </CardStyle>
-          );
-        })}
+                ))}
+              </CardStyle>
+            );
+          })}
 
-        {checkWord() && (
-          <Button
-            type="primary"
-            block
-            size="large"
-            onClick={() => updateStatusWord(params.w)}
-          >
-            {isDone() ? <Icon icon={icons.check} color="#fff" /> : 'Done'}
-          </Button>
-        )}
-      </DetailContent>
-    </DetailWrap>
+          {checkWord() && (
+            <Button
+              type="primary"
+              block
+              size="large"
+              onClick={() => updateStatusWord(params.w)}
+            >
+              {isDone() ? <Icon icon={icons.check} color="#fff" /> : 'Done'}
+            </Button>
+          )}
+        </DetailContent>
+      </DetailWrap>
+    </>
   );
 };
 

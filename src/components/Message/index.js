@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { type Node } from 'react';
 import { MessageWrap } from './style';
 
-const Message = ({ children }) => {
+const Message = ({ children }: { children: Node }) => {
   return <MessageWrap>{children}</MessageWrap>;
 };
 

@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { Card } from '@uifabric/react-cards';
 
 import FormSignup from './FormSignup';
 

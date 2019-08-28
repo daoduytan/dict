@@ -9,7 +9,6 @@ import { HeadingWrap } from './style';
 type HeadingProps = { user: any };
 
 const Heading = ({ user }: HeadingProps) => {
-  console.log('dsda', user);
   return (
     <>
       <HeadingWrap>
@@ -17,9 +16,7 @@ const Heading = ({ user }: HeadingProps) => {
           <h2 style={{ margin: '5px 0', fontSize: 30 }}>
             Hi, {user.displayName}
           </h2>
-          <p style={{ lineHeight: 1.5, fontSize: 14 }}>
-            Learn vocabulary every day
-          </p>
+          <p style={{ lineHeight: 1.5 }}>Learn vocabulary every day</p>
         </div>
 
         <Link to="/profile">

@@ -38,12 +38,11 @@ const FormSignup = () => {
     } else {
       fireauth
         .createUserWithEmailAndPassword(email, password)
-        .then(res => {
+        .then(() => {
           setLoading(false);
         })
-        .catch(err => {
+        .catch(() => {
           setLoading(false);
-          console.log('err', err);
         });
     }
   };

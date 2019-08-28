@@ -9,7 +9,7 @@ const Loading = () => {
       <img
         src={loading}
         alt="loading"
-        style={{ display: 'block', width: '100%' }}
+        style={{ display: 'block', width: '100%', maxWidth: 300 }}
       />
     </LoadingWrap>
   );

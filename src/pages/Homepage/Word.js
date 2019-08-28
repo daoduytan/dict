@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Icon } from '../../components';
 import icons from '../../assets/icons';
@@ -20,7 +20,8 @@ type WordProps = {
   user: {
     uid: String
   },
-  type: String
+  type: String,
+  updateTypeDate: Function
 };
 
 const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
@@ -55,9 +56,7 @@ const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
           return null;
         }
 
-        console.log('dasdas');
-
-        snapshot.forEach(doc => {
+        return snapshot.forEach(doc => {
           ref
             .doc(uid)
             .collection('word_today')
@@ -84,7 +83,7 @@ const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
             return null;
           }
 
-          snapshot.forEach(doc => {
+          return snapshot.forEach(doc => {
             ref1.doc(doc.id).update({
               type: newType()
             });

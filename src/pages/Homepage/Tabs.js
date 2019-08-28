@@ -1,5 +1,6 @@
+// @flow
 import React, { useState } from 'react';
-import { toNumber } from 'lodash/fp';
+import { toNumber, find } from 'lodash/fp';
 
 import styled from 'styled-components';
 import connect from '../../state/connect';
@@ -9,13 +10,14 @@ import theme from '../../configs/theme';
 import TabDay from './TabDay';
 import TabWeek from './TabWeek';
 import TabMonth from './TabMonth';
+import { Button } from '../../components';
 
 const TabHeadingStyle = styled.div`
   flex: 1;
   padding: 15px 10px;
   text-align: center;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 14px;
   text-transform: uppercase;
   position: relative;
 
@@ -34,7 +36,13 @@ const TabHeadingStyle = styled.div`
   }
 `;
 
-const TabHeading = ({ title, onClick, active, ...rest }) => {
+type TabHeadingProps = {
+  title: String,
+  onClick: Function,
+  active: Boolean
+};
+
+const TabHeading = ({ title, onClick, active, ...rest }: TabHeadingProps) => {
   return (
     <TabHeadingStyle onClick={onClick} active={active} {...rest}>
       {title}
@@ -44,22 +52,36 @@ const TabHeading = ({ title, onClick, active, ...rest }) => {
 
 const TabPanel = ({ children }) => children;
 
-const select = [
+const enhance = connect([
   {
-    values: ['wordsToday'],
+    values: ['wordsToday', 'reload'],
     context: 'wordContext'
   }
-];
+]);
 
-const TabToday = connect(select)(({ wordsToday }) =>
-  wordsToday.map((w, i) => (
-    <Word
-      key={w.word}
-      word={{ ...w, number: i, type: w.type || 'today' }}
-      type="today"
-    />
-  ))
-);
+const TabToday = enhance(({ wordsToday, reload }) => {
+  const wordNotDone = find(w => w.status === false, wordsToday);
+
+  return (
+    <>
+      {wordsToday.map((w, i) => (
+        <Word
+          key={w.word}
+          word={{ ...w, number: i, type: w.type || 'today' }}
+          type="today"
+        />
+      ))}
+
+      {!wordNotDone && (
+        <div style={{ margin: 30 }}>
+          <Button type="primary" size="large" block onClick={reload}>
+            Load more
+          </Button>
+        </div>
+      )}
+    </>
+  );
+});
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState(1);

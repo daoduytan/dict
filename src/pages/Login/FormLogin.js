@@ -32,20 +32,17 @@ const FormLogin = () => {
 
     const getError = validate();
 
-    console.log('dadas', getError);
-
     if (Object.keys(getError).length > 0) {
       setError(getError);
       setLoading(false);
     } else {
       fireauth
         .signInWithEmailAndPassword(email, password)
-        .then(res => {
+        .then(() => {
           setLoading(false);
         })
-        .catch(err => {
+        .catch(() => {
           setLoading(false);
-          console.log('err', err);
         });
     }
   };

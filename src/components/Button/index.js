@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { type Node } from 'react';
 
 import styled from 'styled-components';
 import theme from '../../configs/theme';
 
 const display = block => (block ? 'block' : 'inline-block');
 const width = block => (block ? '100%' : 'default');
-const padding = size => (size === 'large' ? '10px 15px' : '7px 10px');
+const padding = size => (size === 'large' ? '15px' : '7px 10px');
 
 const background = type => (type === 'primary' ? theme.color.primary : '#fff');
 const color = type => (type === 'primary' ? '#fff' : '#000');
@@ -27,7 +27,12 @@ const ButtonWrap = styled.button`
   cursor: pointer;
 `;
 
-const Button = ({ children, loading, ...props }) => {
+type ButtonProps = {
+  children: Node,
+  loading: Boolean
+};
+
+const Button = ({ children, loading, ...props }: ButtonProps) => {
   return <ButtonWrap {...props}>{loading ? 'Loading' : children} </ButtonWrap>;
 };
 

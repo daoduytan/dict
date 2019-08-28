@@ -12,7 +12,6 @@ const useAuth = () => {
   useEffect(() => {
     setLoading(true);
     fireauth.onAuthStateChanged(res => {
-      console.log('dasdadaadas', res);
       if (res) {
         const user = pick(
           ['displayName', 'phoneNumber', 'email', 'photoURL', 'uid'],
@@ -32,4 +31,5 @@ const useAuth = () => {
   return [loading, auth, setAuth];
 };
 
+// eslint-disable-next-line
 export { useAuth };

@@ -6,6 +6,7 @@ import { Avatar, Icon, Button } from '../../components';
 import connect from '../../state/connect';
 import theme from '../../configs/theme';
 import icons from '../../assets/icons';
+import HeadingScreen from '../../components/HeadingScreen';
 
 const BoxStyle = styled.div`
   // margin: 0 ${theme.size.space * 2}px;
@@ -39,7 +40,8 @@ const RowLine = styled.div`
 
 type ProfileProps = {
   user: {
-    displayName: String
+    displayName: String,
+    email: String
   },
   logout: Function
 };
@@ -47,13 +49,7 @@ type ProfileProps = {
 const Profile = ({ user, logout }: ProfileProps) => {
   return (
     <>
-      <div>
-        <Link to="/">
-          <div style={{ padding: '20px 30px', display: 'inline-block' }}>
-            <Icon icon={icons.back} />
-          </div>
-        </Link>
-      </div>
+      <HeadingScreen title="Profile" />
 
       <div
         style={{
@@ -69,18 +65,6 @@ const Profile = ({ user, logout }: ProfileProps) => {
         <div style={{ marginBottom: 30 }}>
           <Avatar size={100} />
           <div>{user.displayName}</div>
-        </div>
-        <div
-          style={{
-            padding: '10px 15px',
-            borderRadius: 30,
-            background: theme.color.primary,
-            color: '#fff',
-            fontWeight: 700,
-            fontSize: 14
-          }}
-        >
-          <div>70 words learned</div>
         </div>
       </div>
       <div>

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import theme from '../../configs/theme';
 
 const DetailWrap = styled.div`
-  padding-top: 60px;
+  padding-top: ${theme.size.space}px;
 `;
 
 const Heading = styled.div`

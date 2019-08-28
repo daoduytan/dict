@@ -26,4 +26,5 @@ const generalWord = int => {
   return words;
 };
 
+// eslint-disable-next-line
 export { generalWord };

@@ -1,7 +1,5 @@
 import React from 'react';
-// import { Card } from '@uifabric/react-cards';
 import FormLogin from './FormLogin';
-import theme from '../../configs/theme';
 
 const Login = () => {
   return (

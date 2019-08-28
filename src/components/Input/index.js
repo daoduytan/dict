@@ -4,13 +4,14 @@ import theme from '../../configs/theme';
 type Props = {
   label?: String,
   block?: Boolean,
-  size?: String
+  size?: String,
+  error: String
 };
 
 const Input = ({ label, error, block, size, ...props }: Props) => {
   const display = block ? 'block' : 'inline-block';
   const width = block ? '100%' : 'default';
-  const padding = size === 'large' ? '10px 15px' : '7px 10px';
+  const padding = size === 'large' ? '15px 10px' : '7px 10px';
 
   const borderColor = error ? theme.color.error : theme.color.border;
 

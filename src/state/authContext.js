@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, type Node } from 'react';
+import React, { createContext, type Node } from 'react';
 
 import { Loading } from '../components';
 import { useAuth } from './useHooks';
@@ -20,6 +20,7 @@ const ProviderAuthContext = ({ children }: ProviderAuthContextProps) => {
 
   const logout = () => {
     setAuth({ user: null, auth: false });
+    localStorage.removeItem('words');
     fireauth.signOut();
   };
 
