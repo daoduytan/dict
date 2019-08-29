@@ -51,9 +51,7 @@ const ItemStyle = styled.div`
   }
 `;
 
-const Item = withRouter(({ icon, path, title, history, isAuth }) => {
-  if (!isAuth) return null;
-
+const Item = withRouter(({ icon, path, title, history }) => {
   const { location } = history;
 
   const { pathname } = location;
@@ -97,7 +95,10 @@ const menus = [
   }
 ];
 
-const FooterBar = () => {
+type FooterBarProps = { isAuth: Boolean };
+
+const FooterBar = ({ isAuth }: FooterBarProps) => {
+  if (!isAuth) return null;
   return (
     <FooterBarWrap>
       {menus.map(m => (
