@@ -7,5 +7,6 @@ import Loading from './Loading';
 import Message from './Message';
 import Avatar from './Avatar';
 import Logo from './Logo';
+import Alert from './Alert';
 
-export { Modal, Icon, Input, Button, Loading, Message, Avatar, Logo };
+export { Modal, Icon, Input, Button, Loading, Message, Avatar, Logo, Alert };

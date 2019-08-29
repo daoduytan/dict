@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${theme.font.family.primary};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
   }
 
   code {

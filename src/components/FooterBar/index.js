@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Icon } from '..';
 import icons from '../../assets/icons';
 import theme from '../../configs/theme';
+import connect from '../../state/connect';
 
 const FooterBarWrap = styled.div`
   display: grid;
@@ -50,7 +51,9 @@ const ItemStyle = styled.div`
   }
 `;
 
-const Item = withRouter(({ icon, path, title, history }) => {
+const Item = withRouter(({ icon, path, title, history, isAuth }) => {
+  if (!isAuth) return null;
+
   const { location } = history;
 
   const { pathname } = location;
@@ -104,4 +107,6 @@ const FooterBar = () => {
   );
 };
 
-export default FooterBar;
+const enhance = connect([{ values: ['isAuth'], context: 'authContext' }]);
+
+export default enhance(FooterBar);

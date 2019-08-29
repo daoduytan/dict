@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { fireauth } from '../../api';
-import { Input, Button, Message } from '../../components';
+import { Input, Button, Message, Alert } from '../../components';
 import theme from '../../configs/theme';
 
 const FormLogin = () => {
   const [loading, setLoading] = useState(false);
+  const [alert_error, setAlertError] = useState(null);
   const [error, setError] = useState({});
   const [values, setValues] = useState({
     email: '',
@@ -42,6 +43,8 @@ const FormLogin = () => {
           setLoading(false);
         })
         .catch(() => {
+          const message = 'User not found';
+          setAlertError(message);
           setLoading(false);
         });
     }
@@ -52,14 +55,18 @@ const FormLogin = () => {
 
     const newError = { ...error, [e.target.name]: '' };
     setError(newError);
-
     setValues(newValues);
   };
+
+  const resetError = () => setAlertError(null);
 
   const { email, password } = values;
 
   return (
     <form onSubmit={handleSubmit}>
+      {!!alert_error && (
+        <Alert message={alert_error} type="error" onClose={resetError} />
+      )}
       <div>
         <Input
           placeholder="Your email"

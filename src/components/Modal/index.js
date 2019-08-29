@@ -1,4 +1,4 @@
-import React, { useState, type Node } from 'react';
+import React, { useState, type Node, Children, cloneElement } from 'react';
 
 import Icon from '../Icon';
 import icons from '../../assets/icons';
@@ -10,8 +10,19 @@ const ModalProps = {
 };
 
 const Modal = ({ label, children }: ModalProps) => {
+  // const childrenWithProps = React.Children.map(this.props.children, child =>
+  //   React.cloneElement(child, { doSomething: this.doSomething })
+  // );
+
+  console.log(Children);
+
   const [visible, setVisible] = useState(false);
   const onClick = () => setVisible(!visible);
+
+  const modalChildrenWithProps = Children.map(children, child =>
+    cloneElement(child, { onClick })
+  );
+
   return (
     <>
       <div onClick={onClick} role="presentation">
@@ -33,7 +44,7 @@ const Modal = ({ label, children }: ModalProps) => {
             >
               <Icon icon={icons.close} size={20} />
             </div>
-            <div>{children}</div>
+            <div>{modalChildrenWithProps}</div>
           </ModalInner>
         </ModalWrap>
       )}

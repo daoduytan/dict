@@ -12,7 +12,7 @@ const color = type => (type === 'primary' ? '#fff' : '#000');
 const colorBorder = type =>
   type === 'primary' ? theme.color.primary : theme.color.border;
 
-const ButtonWrap = styled.button`
+export const ButtonWrap = styled.button`
   display: ${({ block }) => display(block)};
   width: ${({ block }) => width(block)};
   padding: ${({ size }) => padding(size)};

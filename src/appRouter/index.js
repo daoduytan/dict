@@ -29,12 +29,13 @@ const AppRouter = () => {
                 <GuestRouter component={Profile} exact path="/profile" />
                 <GuestRouter component={Detail} exact path="/word/:w" />
                 <GuestRouter component={WordDone} exact path="/words-done" />
+
                 <UserRouter path="/sign-up" component={Signup} />
                 <UserRouter path="/login" component={Login} />
                 <Route component={NotFound} />
               </Switch>
+              <FooterBar />
             </div>
-            <FooterBar />
           </Router>
         </Suspense>
       </ProviderWordContext>

@@ -2,23 +2,29 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Avatar, Icon, Button } from '../../components';
+import { Avatar, Icon, Button, Modal } from '../../components';
 import connect from '../../state/connect';
 import theme from '../../configs/theme';
 import icons from '../../assets/icons';
 import HeadingScreen from '../../components/HeadingScreen';
+import ModalResetCache from './ModalResetCache';
+
+const Heading = styled.div`
+  minheight: 150px;
+  padding-bottom: ${theme.size.space}px;
+  display: flex;
+  align-items: center;
+  flexdirection: column;
+  justify-content: center;
+  border-bottom: 1px solid ${theme.color.border};
+`;
 
 const BoxStyle = styled.div`
-  // margin: 0 ${theme.size.space * 2}px;
-  // box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-  // border-radius: 5px
   overflow: hidden;
-  // border: 1px solid ${theme.color.border};
 `;
 
 const TitleStyle = styled.div`
   font-weight: 700;
-  // padding: 0 ${theme.size.space * 2}px ${theme.size.space}px;
 `;
 
 const RowLine = styled.div`
@@ -34,7 +40,9 @@ const RowLine = styled.div`
   }
 
   span:last-child {
-    font-family: ${theme.font.family.secondary};
+    font-size: 18px;
+    font-weight 700;
+    color: ${theme.color.primary}
   }
 `;
 
@@ -51,22 +59,12 @@ const Profile = ({ user, logout }: ProfileProps) => {
     <>
       <HeadingScreen title="Profile" />
 
-      <div
-        style={{
-          minHeight: 150,
-          paddingBottom: 30,
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          borderBottom: `1px solid ${theme.color.border}`
-        }}
-      >
+      <Heading>
         <div style={{ marginBottom: 30 }}>
           <Avatar size={100} />
           <div>{user.displayName}</div>
         </div>
-      </div>
+      </Heading>
       <div>
         <BoxStyle>
           <Link to="edit-profile">
@@ -101,6 +99,13 @@ const Profile = ({ user, logout }: ProfileProps) => {
           <RowLine>
             <span className="label">Number word</span>
             <span>10</span>
+          </RowLine>
+
+          <RowLine>
+            <span className="label">Reset cached</span>
+            <Modal label={<Button>Reset cached</Button>}>
+              <ModalResetCache />
+            </Modal>
           </RowLine>
         </BoxStyle>
 
