@@ -29,8 +29,6 @@ const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
 
   const { uid } = user;
 
-  console.log('user', uid);
-
   const handleChangeType = () => {
     const newType = () => {
       if (type === 'today') {

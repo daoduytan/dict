@@ -22,14 +22,11 @@ const WordLine = styled(Link)`
 `;
 
 const HeadingWrap = styled.div`
-  // background: ${theme.color.primary};
-  // color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: ${theme.size.space + 5}px ${theme.size.space * 2}px
-    ${theme.size.space - 5}px ${theme.size.space * 2}px;
-    
+  padding: ${theme.size.space * 2}px ${theme.size.space * 2}px
+    ${theme.size.space}px ${theme.size.space * 2}px;
 `;
 
 const Button = styled.div`

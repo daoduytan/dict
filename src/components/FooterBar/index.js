@@ -81,7 +81,7 @@ const menus = [
   {
     icon: icons.home,
     title: 'Home',
-    path: '/'
+    path: '/main'
   },
   {
     icon: icons.book,

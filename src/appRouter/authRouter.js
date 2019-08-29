@@ -15,15 +15,7 @@ const GuestRouter = ({ component: Component, ...rest }: RouterProps) => {
     <Route
       {...rest}
       render={props => {
-        if (!isAuth)
-          return (
-            <Redirect
-              to={{
-                pathname: '/login'
-              }}
-            />
-          );
-
+        if (!isAuth) return <Redirect to={{ pathname: '/login' }} />;
         return <Component {...props} />;
       }}
     />
@@ -37,15 +29,7 @@ const UserRouter = ({ component: Component, ...rest }: RouterProps) => {
     <Route
       {...rest}
       render={props => {
-        if (isAuth)
-          return (
-            <Redirect
-              to={{
-                pathname: '/'
-              }}
-            />
-          );
-
+        if (isAuth) return <Redirect to={{ pathname: '/main' }} />;
         return <Component {...props} />;
       }}
     />

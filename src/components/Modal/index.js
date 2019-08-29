@@ -1,3 +1,4 @@
+// @flow
 import React, { useState, type Node, Children, cloneElement } from 'react';
 
 import Icon from '../Icon';
@@ -10,12 +11,6 @@ const ModalProps = {
 };
 
 const Modal = ({ label, children }: ModalProps) => {
-  // const childrenWithProps = React.Children.map(this.props.children, child =>
-  //   React.cloneElement(child, { doSomething: this.doSomething })
-  // );
-
-  console.log(Children);
-
   const [visible, setVisible] = useState(false);
   const onClick = () => setVisible(!visible);
 

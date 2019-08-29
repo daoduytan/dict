@@ -3,6 +3,7 @@ import React from 'react';
 
 import FormSignup from './FormSignup';
 import { Logo } from '../../components';
+import theme from '../../configs/theme';
 
 const Signup = () => {
   return (
@@ -21,7 +22,15 @@ const Signup = () => {
         }}
       >
         <div style={{ width: '90%', maxWidth: 350 }}>
-          <h2 style={{ marginBottom: 30 }}>Sign up</h2>
+          <h2
+            style={{
+              marginBottom: 30,
+              fontSize: 40,
+              fontFamily: theme.font.family.secondary
+            }}
+          >
+            Create account
+          </h2>
 
           <FormSignup />
         </div>

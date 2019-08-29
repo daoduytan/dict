@@ -1,6 +1,7 @@
 import React from 'react';
 import FormLogin from './FormLogin';
 import { Logo } from '../../components';
+import theme from '../../configs/theme';
 
 const Login = () => {
   return (
@@ -19,7 +20,15 @@ const Login = () => {
         }}
       >
         <div style={{ width: '90%', maxWidth: 350 }}>
-          <h2 style={{ marginBottom: 30 }}>Login</h2>
+          <h2
+            style={{
+              marginBottom: 30,
+              fontSize: 40,
+              fontFamily: theme.font.family.secondary
+            }}
+          >
+            Wellcome back
+          </h2>
           <FormLogin />
         </div>
       </div>

@@ -8,7 +8,6 @@ const Homepage = () => {
   return (
     <>
       <Heading />
-
       <Tabs />
     </>
   );

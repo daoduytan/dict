@@ -1,5 +1,5 @@
 // @flow
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { toNumber, find } from 'lodash/fp';
 
 import styled from 'styled-components';
@@ -17,8 +17,7 @@ const TabHeadingStyle = styled.div`
   padding: 15px 10px;
   text-align: center;
   font-weight: 700;
-  font-size: 14px;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   position: relative;
 
   color: ${({ active }) => (active ? theme.color.primary : theme.color.text)};
@@ -31,9 +30,29 @@ const TabHeadingStyle = styled.div`
     right: 0;
     display: block;
     height: 2px;
-    background: ${({ active }) =>
-      active ? theme.color.primary : 'transparent'};
+    background: ${({ active }) => (active ? 'transparent' : 'transparent')};
   }
+`;
+
+const BarScroll = styled.div`
+  height: 3px;
+  width: ${({ number }) => `${100 / number}%`};
+  transition: all 0.3s cubic-bezier(0.63, -0.33, 0.37, 1.36);
+  background: ${theme.color.primary};
+  position: absolute;
+  bottom: -1px;
+  z-isndex: 10;
+  transform: ${({ active }) => `translateX(${(active - 1) * 100}%)`};
+`;
+
+const TabWrap = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+  width: 100%;
+  z-index: 100;
+  transition: all 0.3s cubic-bezier(0.63, -0.33, 0.37, 1.36);
 `;
 
 type TabHeadingProps = {
@@ -85,21 +104,39 @@ const TabToday = enhance(({ wordsToday, reload }) => {
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState(1);
+  const [fixed, setFixed] = useState(false);
+
+  const refTab = useRef();
 
   const handleChangeTab = e => {
     setActiveTab(toNumber(e.target.id));
   };
 
+  const handleScroll = () => {
+    if (window.scrollY >= refTab.current.offsetTop - 52) {
+      return setFixed(true);
+    }
+    return setFixed(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div>
-      <div
+      <TabWrap
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          borderBottom: '1px solid #ddd',
-          background: '#fff'
+          position: fixed ? 'fixed' : 'relative',
+          top: fixed ? '0' : 'auto'
         }}
       >
+        <BarScroll active={activeTab} number={4} />
+
         <TabHeading
           title="Today"
           onClick={handleChangeTab}
@@ -124,9 +161,9 @@ const Tabs = () => {
           id={4}
           active={activeTab === 4}
         />
-      </div>
+      </TabWrap>
 
-      <div>
+      <div ref={refTab}>
         {activeTab === 1 && (
           <TabPanel>
             <TabToday />
