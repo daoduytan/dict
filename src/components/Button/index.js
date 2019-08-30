@@ -7,7 +7,8 @@ const display = block => (block ? 'block' : 'inline-block');
 const width = block => (block ? '100%' : 'default');
 const padding = size => (size === 'large' ? '15px' : '7px 10px');
 
-const background = type => {
+const background = (disabled, type) => {
+  if (disabled) return theme.color.border;
   if (type === 'primary') return theme.color.primary;
   if (type === 'secondary') return theme.color.secondary;
   return theme.color.border;
@@ -24,7 +25,7 @@ export const ButtonWrap = styled.button`
   display: ${({ block }) => display(block)};
   width: ${({ block }) => width(block)};
   padding: ${({ size }) => padding(size)};
-  background: ${({ type }) => background(type)};
+  background: ${({ type, disabled }) => background(disabled, type)};
   color: ${({ type }) => color(type)};
   border: 1px solid;
   border-color: ${({ type }) => colorBorder(type)};
@@ -33,6 +34,7 @@ export const ButtonWrap = styled.button`
   line-height: 1;
   font-weight: 700;
   cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `;
 
 type ButtonProps = {

@@ -10,8 +10,10 @@ import Avatar from './Avatar';
 import Logo from './Logo';
 import Alert from './Alert';
 import Audio from './Audio';
+import Layout from './Layout';
 
 export {
+  Layout,
   Modal,
   Icon,
   Input,

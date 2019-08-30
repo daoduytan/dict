@@ -17,16 +17,16 @@ const Start = () => {
       }}
     >
       <Logo size={30} />
-      <div style={{ marginTop: 30, marginBottom: 30 }}>
-        <div>
-          <img src={learn} alt="" style={{ display: 'block', width: '100%' }} />
-        </div>
+      <div style={{ marginTop: 30, flex: 1 }}>
+        <img src={learn} alt="" style={{ display: 'block', maxWidth: '90%' }} />
+      </div>
 
+      <div style={{ flex: 1, textAlign: 'center', marginBottom: 30 }}>
         <h2
           style={{
             marginBottom: 10,
             fontFamily: theme.font.family.secondary,
-            fontSize: 30
+            fontSize: 25
           }}
         >
           Wellcome to 3000 vocabulary
@@ -35,7 +35,7 @@ const Start = () => {
         <p style={{ color: theme.color.primary }}>Try to learn English now.</p>
       </div>
 
-      <div style={{ width: '100%', display: 'grid', gridGap: 15 }}>
+      <div style={{ width: '100%', display: 'grid', gridGap: 15, flex: 1 }}>
         <Link to="/login" style={{ width: '100%' }}>
           <Button type="primary" block size="large">
             Login
@@ -43,7 +43,7 @@ const Start = () => {
         </Link>
 
         <Link to="/signup" style={{ width: '100%' }}>
-          <Button block size="large">
+          <Button block size="large" type="secondary">
             Signup
           </Button>
         </Link>

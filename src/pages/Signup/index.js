@@ -2,12 +2,12 @@
 import React from 'react';
 
 import FormSignup from './FormSignup';
-import { Logo } from '../../components';
+import { Logo, Layout } from '../../components';
 import theme from '../../configs/theme';
 
 const Signup = () => {
   return (
-    <>
+    <Layout>
       <div style={{ padding: '20px 30px', position: 'fixed', top: 0 }}>
         <Logo size={30} />
       </div>
@@ -35,7 +35,7 @@ const Signup = () => {
           <FormSignup />
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

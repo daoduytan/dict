@@ -2,7 +2,7 @@ import React from 'react';
 import HeadingScreen from '../../components/HeadingScreen';
 import { useWordsDone } from './useHooks';
 import connect from '../../state/connect';
-import { Loading } from '../../components';
+import { Loading, Layout } from '../../components';
 import Word from '../Homepage/Word';
 import theme from '../../configs/theme';
 
@@ -14,7 +14,7 @@ const WordsDone = ({ user }: { user: any }) => {
   const width = `${(words.length / 3000) * 100}%`;
 
   return (
-    <>
+    <Layout>
       <HeadingScreen title="Words done" />
 
       <div style={{ padding: '10px 30px 20px' }}>
@@ -62,7 +62,7 @@ const WordsDone = ({ user }: { user: any }) => {
           />
         ))}
       </div>
-    </>
+    </Layout>
   );
 };
 

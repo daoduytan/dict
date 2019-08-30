@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Avatar, Icon, Button, Modal } from '../../components';
+import { Avatar, Icon, Button, Modal, Layout } from '../../components';
 import connect from '../../state/connect';
 import theme from '../../configs/theme';
 import icons from '../../assets/icons';
@@ -56,7 +56,7 @@ type ProfileProps = {
 
 const Profile = ({ user, logout }: ProfileProps) => {
   return (
-    <>
+    <Layout>
       <HeadingScreen title="Profile" />
 
       <Heading>
@@ -115,7 +115,7 @@ const Profile = ({ user, logout }: ProfileProps) => {
           </Button>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

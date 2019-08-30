@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { find } from 'lodash/fp';
 
 import Axios from 'axios';
-import { Icon, Loading, Button } from '../../components';
+import { Icon, Loading, Button, Layout } from '../../components';
 import icons from '../../assets/icons';
 
 import {
@@ -67,7 +67,7 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
   };
 
   return (
-    <>
+    <Layout>
       <HeadingScreen title="" />
 
       <DetailWrap>
@@ -155,7 +155,7 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
           )}
         </DetailContent>
       </DetailWrap>
-    </>
+    </Layout>
   );
 };
 

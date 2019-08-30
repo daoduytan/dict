@@ -1,11 +1,11 @@
 import React from 'react';
 import FormLogin from './FormLogin';
-import { Logo } from '../../components';
+import { Logo, Layout } from '../../components';
 import theme from '../../configs/theme';
 
 const Login = () => {
   return (
-    <>
+    <Layout>
       <div style={{ padding: '20px 30px', position: 'fixed', top: 0 }}>
         <Logo size={30} />
       </div>
@@ -32,7 +32,7 @@ const Login = () => {
           <FormLogin />
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 
