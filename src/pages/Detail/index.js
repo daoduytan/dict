@@ -72,6 +72,8 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
     return true;
   };
 
+  console.log('data', data);
+
   return (
     <Layout>
       <HeadingScreen title="" />
@@ -102,13 +104,13 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
         >
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <span style={{ marginRight: 5 }}>ENG:</span>{' '}
-            <Audio audio={data[0].sounds[1]} />
+            <Audio audio={data[0].sounds[0]} />
           </div>
           <div
             style={{ display: 'flex', alignItems: 'center', marginLeft: 20 }}
           >
             <span style={{ marginRight: 5 }}>USA:</span>{' '}
-            <Audio audio={data[0].sounds[0]} />
+            <Audio audio={data[0].sounds[1]} />
           </div>
         </div>
 
