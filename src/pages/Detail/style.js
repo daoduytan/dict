@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import theme from '../../configs/theme';
 
-const DetailWrap = styled.div`
-  padding-top: ${theme.size.space}px;
-`;
+const DetailWrap = styled.div``;
 
 const Heading = styled.div`
   display: flex;

@@ -1,4 +1,5 @@
 // @flow
+import HeadingScreen from './HeadingScreen';
 import Icon from './Icon';
 import Modal from './Modal';
 import Input from './Input';
@@ -8,5 +9,18 @@ import Message from './Message';
 import Avatar from './Avatar';
 import Logo from './Logo';
 import Alert from './Alert';
+import Audio from './Audio';
 
-export { Modal, Icon, Input, Button, Loading, Message, Avatar, Logo, Alert };
+export {
+  Modal,
+  Icon,
+  Input,
+  Button,
+  Loading,
+  Message,
+  Avatar,
+  Logo,
+  Alert,
+  Audio,
+  HeadingScreen
+};

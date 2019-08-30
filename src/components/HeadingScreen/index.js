@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { Icon } from '..';
+import Icon from '../Icon';
 import icons from '../../assets/icons';
 
 type HeadingScreenProps = { title?: String, history: { goBack: Function } };

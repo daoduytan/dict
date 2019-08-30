@@ -15,7 +15,7 @@ import {
 } from './style';
 import theme from '../../configs/theme';
 import connect from '../../state/connect';
-import HeadingScreen from '../../components/HeadingScreen';
+import { HeadingScreen, Audio } from '../../components';
 
 type DetailProps = {
   match: {
@@ -69,6 +69,7 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
   return (
     <>
       <HeadingScreen title="" />
+
       <DetailWrap>
         {params.w && (
           <div
@@ -76,13 +77,23 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
               textAlign: 'center',
               fontSize: 40,
               fontWeight: 700,
+              lineHeight: 1,
               fontFamily: theme.font.family.secondary,
-              margin: `${theme.size.space}px 0 ${theme.size.space * 2}px`
+              margin: `0 0 ${theme.size.space * 2}px`
             }}
           >
             {params.w}
           </div>
         )}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Audio />
+        </div>
 
         <DetailContent>
           {data.map(d => {
