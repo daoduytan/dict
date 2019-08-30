@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fbf7a5a1c30a0d2ce9777623c90e9f70",
+    "revision": "76c28d877748b02e4049eedae4fc4ea9",
     "url": "/dict/index.html"
   },
   {
@@ -36,8 +36,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dict/static/js/5.28ef8e2b.chunk.js"
   },
   {
-    "revision": "58af5f73443a258cc6b4",
-    "url": "/dict/static/js/6.48654b59.chunk.js"
+    "revision": "3a8ac94a576d38467f77",
+    "url": "/dict/static/js/6.1f4e1fab.chunk.js"
   },
   {
     "revision": "ea5f12a1f26b0a128731",
@@ -56,8 +56,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dict/static/js/main.fd3d0699.chunk.js"
   },
   {
-    "revision": "226c89b0c682b1d1a512",
-    "url": "/dict/static/js/runtime~main.01e0a63e.js"
+    "revision": "ba16e60630ba00603f7f",
+    "url": "/dict/static/js/runtime~main.03fae256.js"
   },
   {
     "revision": "cc4daa9d54c97a1badec1f0fd9a327dc",
