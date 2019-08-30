@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { find } from 'lodash/fp';
 
 import Axios from 'axios';
-import { Icon, Loading, Button, Layout } from '../../components';
+import {
+  Icon,
+  Loading,
+  Button,
+  Layout,
+  HeadingScreen,
+  Audio
+} from '../../components';
 import icons from '../../assets/icons';
 
 import {
@@ -15,7 +22,6 @@ import {
 } from './style';
 import theme from '../../configs/theme';
 import connect from '../../state/connect';
-import { HeadingScreen, Audio } from '../../components';
 
 type DetailProps = {
   match: {
@@ -89,10 +95,21 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            fontWeight: 700,
+            fontSize: 12
           }}
         >
-          <Audio />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span style={{ marginRight: 5 }}>ENG:</span>{' '}
+            <Audio audio={data[0].sounds[1]} />
+          </div>
+          <div
+            style={{ display: 'flex', alignItems: 'center', marginLeft: 20 }}
+          >
+            <span style={{ marginRight: 5 }}>USA:</span>{' '}
+            <Audio audio={data[0].sounds[0]} />
+          </div>
         </div>
 
         <DetailContent>

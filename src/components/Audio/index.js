@@ -1,31 +1,13 @@
 // @flow
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { withRouter } from 'react-router-dom';
+
 import Icon from '../Icon';
 import Button from '../Button';
 import icons from '../../assets/icons';
-import theme from '../../configs/theme';
 
-const Audio = ({ match }: { match: any }) => {
-  const [hasSound, setHasSound] = useState(false);
-
+const Audio = ({ audio }: { audio: any }) => {
   const ref = useRef();
-  const { params } = match;
-  const { w } = params;
-
-  const audio = `${process.env.PUBLIC_URL}/audio/${w}.mp3`;
-
-  useEffect(() => {
-    fetch(audio)
-      .then(res => {
-        if (res.status === 404) {
-          return setHasSound(false);
-        }
-        console.log('res', res);
-        return setHasSound(true);
-      })
-      .catch(() => setHasSound(false));
-  }, [audio, hasSound, w]);
 
   const onPlay = () => {
     ref.current.play();
@@ -49,12 +31,8 @@ const Audio = ({ match }: { match: any }) => {
         </audio>
       </span>
 
-      <Button
-        onClick={onPlay}
-        type={hasSound ? 'secondary' : null}
-        disabled={!hasSound}
-      >
-        <Icon icon={icons.sound} color={hasSound ? theme.color.text : '#fff'} />
+      <Button onClick={onPlay} type="secondary">
+        <Icon icon={icons.sound} size={18} />
       </Button>
     </div>
   );

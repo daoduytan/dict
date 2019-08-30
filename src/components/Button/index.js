@@ -34,7 +34,12 @@ export const ButtonWrap = styled.button`
   line-height: 1;
   font-weight: 700;
   cursor: pointer;
+
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
 `;
 
 type ButtonProps = {

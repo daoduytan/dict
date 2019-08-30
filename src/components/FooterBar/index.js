@@ -26,7 +26,7 @@ const ItemStyle = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-
+  padding-top: 10px;
   &.active {
     &:before {
       position: absolute;
