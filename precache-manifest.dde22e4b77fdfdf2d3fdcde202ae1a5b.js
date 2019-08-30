@@ -1,15 +1,15 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2006ed7d290252f67217416a0afd6239",
+    "revision": "fbf7a5a1c30a0d2ce9777623c90e9f70",
     "url": "/dict/index.html"
   },
   {
-    "revision": "4a056c1b4520e5de9acc",
+    "revision": "fa767bba824f7b2cae9d",
     "url": "/dict/static/css/2.764ccc25.chunk.css"
   },
   {
-    "revision": "bad0e61b1ac125a023f1",
-    "url": "/dict/static/js/10.10b2e260.chunk.js"
+    "revision": "efcbe9ab440e5d5f2ce0",
+    "url": "/dict/static/js/10.b55cec67.chunk.js"
   },
   {
     "revision": "67f957b83d7042aa2a74",
@@ -20,44 +20,44 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dict/static/js/12.fd568dd5.chunk.js"
   },
   {
-    "revision": "4a056c1b4520e5de9acc",
-    "url": "/dict/static/js/2.9b681097.chunk.js"
+    "revision": "fa767bba824f7b2cae9d",
+    "url": "/dict/static/js/2.6c96e904.chunk.js"
   },
   {
     "revision": "8ffcd2bd4d1a3d138de8",
     "url": "/dict/static/js/3.2af17abe.chunk.js"
   },
   {
-    "revision": "b60d14a42edd5b3bbeb2",
-    "url": "/dict/static/js/4.dc389a3d.chunk.js"
+    "revision": "3a3394c475c615c4a524",
+    "url": "/dict/static/js/4.8f28c120.chunk.js"
   },
   {
-    "revision": "9557e3cb2b999584d076",
-    "url": "/dict/static/js/5.0407adff.chunk.js"
+    "revision": "24f4c6be4c621a3440f0",
+    "url": "/dict/static/js/5.28ef8e2b.chunk.js"
   },
   {
-    "revision": "c7342975cdc9aff17635",
-    "url": "/dict/static/js/6.0782b839.chunk.js"
+    "revision": "58af5f73443a258cc6b4",
+    "url": "/dict/static/js/6.48654b59.chunk.js"
   },
   {
-    "revision": "bee4fa69d54c60cea377",
-    "url": "/dict/static/js/7.9bc930c4.chunk.js"
+    "revision": "ea5f12a1f26b0a128731",
+    "url": "/dict/static/js/7.a475ca48.chunk.js"
   },
   {
     "revision": "297bf1f7975211fddb30",
     "url": "/dict/static/js/8.f5d7a578.chunk.js"
   },
   {
-    "revision": "9efadce7e365ff8662d7",
-    "url": "/dict/static/js/9.b2ddff18.chunk.js"
+    "revision": "e83e4106ba98315da95f",
+    "url": "/dict/static/js/9.605647b6.chunk.js"
   },
   {
-    "revision": "03ca7bab5eeb57ed6f9d",
-    "url": "/dict/static/js/main.f0e3512f.chunk.js"
+    "revision": "7da5b34b58986fbf7508",
+    "url": "/dict/static/js/main.fd3d0699.chunk.js"
   },
   {
-    "revision": "6127e811f1fd10b78eb3",
-    "url": "/dict/static/js/runtime~main.f382e14a.js"
+    "revision": "226c89b0c682b1d1a512",
+    "url": "/dict/static/js/runtime~main.01e0a63e.js"
   },
   {
     "revision": "cc4daa9d54c97a1badec1f0fd9a327dc",
