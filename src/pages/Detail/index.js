@@ -24,6 +24,7 @@ import {
 import theme from '../../configs/theme';
 import connect from '../../state/connect';
 import { getDetailWord } from '../../api/api_word';
+import NoWord from '../Homepage/NoWord';
 
 type DetailProps = {
   match: {
@@ -75,12 +76,10 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
     return true;
   };
 
-  return (
-    <Layout>
-      <HeadingScreen title="" />
-
-      <DetailWrap>
-        {params.w && <Title>{params.w}</Title>}
+  const renderDetail = () => {
+    if (!data) return <NoWord />;
+    return (
+      <>
         <GroupAudio>
           <div className="item">
             <span style={{ marginRight: 5 }}>ENG:</span>{' '}
@@ -151,6 +150,18 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
             </Button>
           )}
         </DetailContent>
+      </>
+    );
+  };
+
+  return (
+    <Layout>
+      <HeadingScreen title="" />
+
+      <DetailWrap>
+        {params.w && <Title>{params.w}</Title>}
+
+        {renderDetail()}
       </DetailWrap>
     </Layout>
   );

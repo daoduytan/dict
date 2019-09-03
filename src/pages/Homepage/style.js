@@ -25,6 +25,7 @@ const HeadingWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: #fff;
   padding: ${theme.size.space * 2}px ${theme.size.space * 2}px
     ${theme.size.space}px ${theme.size.space * 2}px;
 `;

@@ -46,7 +46,7 @@ const Title = styled.div`
   font-size: 40px;
   font-weight: 700;
   line-height: 1;
-  fontfamily: ${theme.font.family.secondary};
+  font-family: ${theme.font.family.secondary};
   margin: 0 0 ${theme.size.space * 2}px;
 `;
 

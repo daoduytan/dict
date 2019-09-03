@@ -30,6 +30,7 @@ const RootRouter = () => {
           <UserRouter path="/login" component={Login} />
 
           <GuestRouter component={Homepage} exact path="/main" />
+          <GuestRouter component={Homepage} path="/main/:params" />
           <GuestRouter component={Profile} exact path="/profile" />
           <GuestRouter component={Detail} exact path="/word/:w" />
           <GuestRouter component={WordDone} exact path="/words-done" />

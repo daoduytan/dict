@@ -14,8 +14,15 @@ const NoWord = () => {
       }}
     >
       <div style={{ textAlign: 'center' }}>
-        <img src={no_word} alt="" style={{ width: 200 }} />
-        <div style={{ fontSize: 18, fontFamily: theme.font.family.secondary }}>
+        <img src={no_word} alt="" style={{ width: 150 }} />
+        <div
+          style={{
+            fontSize: 25,
+            fontWeight: 600,
+            marginTop: theme.size.space * 1.5,
+            fontFamily: theme.font.family.secondary
+          }}
+        >
           No word
         </div>
       </div>

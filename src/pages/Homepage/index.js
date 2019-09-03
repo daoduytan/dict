@@ -8,8 +8,10 @@ import Heading from './Heading';
 const Homepage = () => {
   return (
     <Layout>
-      <Heading />
-      <Tabs />
+      <div style={{ background: '#f5f7f9', minHeight: 'calc(100vh - 60px)' }}>
+        <Heading />
+        <Tabs />
+      </div>
     </Layout>
   );
 };

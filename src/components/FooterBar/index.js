@@ -56,7 +56,7 @@ const Item = withRouter(({ icon, path, title, history }) => {
 
   const { pathname } = location;
 
-  const active = pathname === path;
+  const active = pathname.indexOf(path) !== -1;
 
   return (
     <Link to={path}>

@@ -1,6 +1,7 @@
 // @flow
 import React, { useState, useEffect, useRef } from 'react';
-import { toNumber, find } from 'lodash/fp';
+import { find } from 'lodash/fp';
+import { withRouter, Redirect } from 'react-router-dom';
 
 import styled from 'styled-components';
 import connect from '../../state/connect';
@@ -11,6 +12,7 @@ import TabDay from './TabDay';
 import TabWeek from './TabWeek';
 import TabMonth from './TabMonth';
 import { Button } from '../../components';
+import TabNotFound from './TabNotFound';
 
 const TabHeadingStyle = styled.div`
   flex: 1;
@@ -102,14 +104,51 @@ const TabToday = enhance(({ wordsToday, reload }) => {
   );
 });
 
-const Tabs = () => {
-  const [activeTab, setActiveTab] = useState(1);
+const tabs = [
+  {
+    number: 1,
+    id: 'today',
+    component: TabToday
+  },
+  {
+    number: 2,
+    id: 'day',
+    component: TabDay
+  },
+
+  {
+    number: 3,
+    id: 'week',
+    component: TabWeek
+  },
+  {
+    number: 4,
+    id: 'month',
+    component: TabMonth
+  }
+];
+
+const getNumberActive = params => {
+  if (!params) return tabs[0].number;
+
+  const tabExist = find(t => t.id === params, tabs);
+
+  if (!tabExist) return null;
+
+  return tabExist.number;
+};
+
+const Tabs = ({ match, history }) => {
+  const { params } = match;
+
+  const [activeTab, setActiveTab] = useState(params.params || 'today');
   const [fixed, setFixed] = useState(false);
 
   const refTab = useRef();
 
   const handleChangeTab = e => {
-    setActiveTab(toNumber(e.target.id));
+    history.push(`/main/${e.target.id}`);
+    setActiveTab(e.target.id);
   };
 
   const handleScroll = () => {
@@ -127,6 +166,8 @@ const Tabs = () => {
     };
   }, []);
 
+  const active = getNumberActive(params.params);
+
   return (
     <div>
       <TabWrap
@@ -135,56 +176,62 @@ const Tabs = () => {
           top: fixed ? '0' : 'auto'
         }}
       >
-        <BarScroll active={activeTab} number={4} />
+        <BarScroll active={active} number={4} />
 
         <TabHeading
           title="Today"
           onClick={handleChangeTab}
-          id={1}
-          active={activeTab === 1}
+          id="today"
+          active={activeTab === 'today'}
         />
         <TabHeading
           title="Day"
           onClick={handleChangeTab}
-          id={2}
-          active={activeTab === 2}
+          id="day"
+          active={activeTab === 'day'}
         />
         <TabHeading
           title="Week"
           onClick={handleChangeTab}
-          id={3}
-          active={activeTab === 3}
+          id="week"
+          active={activeTab === 'week'}
         />
         <TabHeading
           title="Month"
           onClick={handleChangeTab}
-          id={4}
-          active={activeTab === 4}
+          id="month"
+          active={activeTab === 'month'}
         />
       </TabWrap>
 
       <div ref={refTab}>
-        {activeTab === 1 && (
-          <TabPanel>
+        {activeTab === 'today' && (
+          <TabPanel className="tab">
             <TabToday />
           </TabPanel>
         )}
 
-        {activeTab === 2 && (
-          <TabPanel>
+        {activeTab === 'day' && (
+          <TabPanel className="tab">
             <TabDay />
           </TabPanel>
         )}
 
-        {activeTab === 3 && (
-          <TabPanel>
+        {activeTab === 'week' && (
+          <TabPanel className="tab">
             <TabWeek />
           </TabPanel>
         )}
 
-        {activeTab === 4 && (
-          <TabPanel>
+        {activeTab === 'month' && (
+          <TabPanel className="tab">
             <TabMonth />
+          </TabPanel>
+        )}
+
+        {!active && (
+          <TabPanel className="tab">
+            <TabNotFound />
           </TabPanel>
         )}
       </div>
@@ -192,4 +239,4 @@ const Tabs = () => {
   );
 };
 
-export default Tabs;
+export default withRouter(Tabs);
