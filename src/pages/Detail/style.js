@@ -3,17 +3,6 @@ import theme from '../../configs/theme';
 
 const DetailWrap = styled.div``;
 
-const Heading = styled.div`
-  display: flex;
-  alignitems: center;
-  padding: ${theme.size.space * 2}px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: #fff;
-`;
-
 const DetailContent = styled.div`
   padding: ${theme.size.space}px ${theme.size.space * 2}px;
 `;
@@ -52,12 +41,35 @@ const NumberStyle = styled.div`
   margin-right: 15px;
 `;
 
+const Title = styled.div`
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  fontfamily: ${theme.font.family.secondary};
+  margin: 0 0 ${theme.size.space * 2}px;
+`;
+
+const GroupAudio = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+
+  .item {
+    display: flex;
+    align-items: center;
+  }
+`;
+
 export {
+  Title,
   DetailWrap,
-  Heading,
   DetailContent,
   CardStyle,
   CarTitleStyle,
   CardTitleSubStyle,
-  NumberStyle
+  NumberStyle,
+  GroupAudio
 };

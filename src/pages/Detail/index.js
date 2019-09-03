@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { find } from 'lodash/fp';
 
-import Axios from 'axios';
 import {
   Icon,
   Loading,
@@ -18,10 +17,13 @@ import {
   CardStyle,
   CarTitleStyle,
   CardTitleSubStyle,
-  NumberStyle
+  NumberStyle,
+  Title,
+  GroupAudio
 } from './style';
 import theme from '../../configs/theme';
 import connect from '../../state/connect';
+import { getDetailWord } from '../../api/api_word';
 
 type DetailProps = {
   match: {
@@ -40,12 +42,13 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const url = `https://sc5z4.sse.codesandbox.io/word/${params.w}`;
-
-    Axios.get(url).then(res => {
-      setData(res.data);
+    const loadDetailtWord = async () => {
+      const word = await getDetailWord(params.w);
+      setData(word);
       setLoading(false);
-    });
+    };
+
+    loadDetailtWord();
   }, [params.w]);
 
   if (loading) return <Loading />;
@@ -72,50 +75,25 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
     return true;
   };
 
-  console.log('data', data);
-
   return (
     <Layout>
       <HeadingScreen title="" />
 
       <DetailWrap>
-        {params.w && (
-          <div
-            style={{
-              textAlign: 'center',
-              fontSize: 40,
-              fontWeight: 700,
-              lineHeight: 1,
-              fontFamily: theme.font.family.secondary,
-              margin: `0 0 ${theme.size.space * 2}px`
-            }}
-          >
-            {params.w}
-          </div>
-        )}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 700,
-            fontSize: 12
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+        {params.w && <Title>{params.w}</Title>}
+        <GroupAudio>
+          <div className="item">
             <span style={{ marginRight: 5 }}>ENG:</span>{' '}
-            <Audio audio={data[0].sounds[0]} />
+            <Audio audio={data.sounds[0]} />
           </div>
-          <div
-            style={{ display: 'flex', alignItems: 'center', marginLeft: 20 }}
-          >
+          <div className="item" style={{ marginLeft: 20 }}>
             <span style={{ marginRight: 5 }}>USA:</span>{' '}
-            <Audio audio={data[0].sounds[1]} />
+            <Audio audio={data.sounds[1]} />
           </div>
-        </div>
+        </GroupAudio>
 
         <DetailContent>
-          {data.map(d => {
+          {data.data.map(d => {
             return (
               <CardStyle key={d.pron}>
                 <CarTitleStyle>{d.title}</CarTitleStyle>
