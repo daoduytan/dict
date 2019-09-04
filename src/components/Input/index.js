@@ -5,10 +5,11 @@ type Props = {
   label?: String,
   block?: Boolean,
   size?: String,
-  error: String
+  error: String,
+  style?: any
 };
 
-const Input = ({ label, error, block, size, ...props }: Props) => {
+const Input = ({ label, error, block, size, style, ...props }: Props) => {
   const display = block ? 'block' : 'inline-block';
   const width = block ? '100%' : 'default';
   const padding = size === 'large' ? '15px 10px' : '7px 10px';
@@ -25,6 +26,7 @@ const Input = ({ label, error, block, size, ...props }: Props) => {
       <input
         {...props}
         style={{
+          ...style,
           display,
           width,
           padding,
@@ -39,7 +41,8 @@ const Input = ({ label, error, block, size, ...props }: Props) => {
 Input.defaultProps = {
   label: null,
   block: false,
-  size: 'default'
+  size: 'default',
+  style: {}
 };
 
 export default Input;

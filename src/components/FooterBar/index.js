@@ -53,7 +53,6 @@ const ItemStyle = styled.div`
 
 const Item = withRouter(({ icon, path, title, history }) => {
   const { location } = history;
-
   const { pathname } = location;
 
   const active = pathname.indexOf(path) !== -1;

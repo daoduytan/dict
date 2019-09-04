@@ -17,6 +17,7 @@ const Login = lazy(() => import('../pages/Login'));
 const Profile = lazy(() => import('../pages/Profile'));
 const WordDone = lazy(() => import('../pages/WordsDone'));
 const Start = lazy(() => import('../pages/Start'));
+const SettingNumber = lazy(() => import('../pages/SettingNumber'));
 
 const RootRouter = () => {
   const { isAuth } = useContext(authContext);
@@ -31,7 +32,8 @@ const RootRouter = () => {
 
           <GuestRouter component={Homepage} exact path="/main" />
           <GuestRouter component={Homepage} path="/main/:params" />
-          <GuestRouter component={Profile} exact path="/profile" />
+          <GuestRouter component={Profile} exact path="/profile"></GuestRouter>
+          <GuestRouter component={SettingNumber} path="/setting-number" />
           <GuestRouter component={Detail} exact path="/word/:w" />
           <GuestRouter component={WordDone} exact path="/words-done" />
 
