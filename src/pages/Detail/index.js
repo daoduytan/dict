@@ -24,7 +24,6 @@ import {
 import theme from '../../configs/theme';
 import connect from '../../state/connect';
 import { getDetailWord } from '../../api/api_word';
-import NoWord from '../Homepage/NoWord';
 
 type DetailProps = {
   match: {

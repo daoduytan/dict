@@ -1,7 +1,7 @@
 // @flow
 import React, { useState, useEffect, useRef } from 'react';
 import { find } from 'lodash/fp';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import styled from 'styled-components';
 import connect from '../../state/connect';
@@ -87,12 +87,12 @@ const TabToday = enhance(({ wordsToday, reload }) => {
     <>
       {wordsToday.map((w, i) => (
         <Word
-          ikey={w.word}
+          key={w.word}
           word={{ ...w, number: i, type: w.type || 'today' }}
           type="today"
         />
       ))}
-      i
+
       {!wordNotDone && (
         <div style={{ margin: 30 }}>
           <Button type="primary" size="large" block onClick={reload}>

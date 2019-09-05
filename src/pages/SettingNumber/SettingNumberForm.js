@@ -5,14 +5,13 @@ import { Input, Button } from '../../components';
 import theme from '../../configs/theme';
 import connect from '../../state/connect';
 
-const SettingNumberForm = ({ user }) => {
+type SettingNumberFormProps = { user: any };
+const SettingNumberForm = ({ user }: SettingNumberFormProps) => {
   const [loading, setLoading] = useState(false);
   const [number, setNumber] = useState(() => {
     const localNumber = localStorage.getItem('number');
     return localNumber || 10;
   });
-
-  console.log('user', user);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -55,7 +54,7 @@ const SettingNumberForm = ({ user }) => {
           textAlign: 'center'
         }}
       />
-      <Button block type="primary" size="large">
+      <Button block type="primary" size="large" loading={loading}>
         Change number
       </Button>
     </form>

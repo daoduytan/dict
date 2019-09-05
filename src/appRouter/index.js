@@ -6,7 +6,6 @@ import { ProviderWordContext } from '../state/wordContext';
 import { Loading } from '../components';
 import authContext, { ProviderAuthContext } from '../state/authContext';
 import { GuestRouter, UserRouter } from './authRouter';
-import FooterBar from '../components/FooterBar';
 
 // auth
 const NotFound = lazy(() => import('../pages/NotFound'));
@@ -39,7 +38,6 @@ const RootRouter = () => {
 
           <Route component={NotFound} />
         </Switch>
-        <FooterBar />
       </div>
     </Router>
   );
