@@ -87,12 +87,12 @@ const TabToday = enhance(({ wordsToday, reload }) => {
     <>
       {wordsToday.map((w, i) => (
         <Word
-          key={w.word}
+          ikey={w.word}
           word={{ ...w, number: i, type: w.type || 'today' }}
           type="today"
         />
       ))}
-
+      i
       {!wordNotDone && (
         <div style={{ margin: 30 }}>
           <Button type="primary" size="large" block onClick={reload}>

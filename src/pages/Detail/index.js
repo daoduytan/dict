@@ -76,8 +76,8 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
     return true;
   };
 
-  const renderDetail = () => {
-    if (!data) return <NoWord />;
+  const renderContent = () => {
+    if (!data) return null;
     return (
       <>
         <GroupAudio>
@@ -138,8 +138,18 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
               </CardStyle>
             );
           })}
+        </DetailContent>
+      </>
+    );
+  };
 
-          {checkWord() && (
+  const renderDetail = () => {
+    return (
+      <>
+        {renderContent()}
+
+        {checkWord() && (
+          <DetailContent>
             <Button
               type="primary"
               block
@@ -148,8 +158,8 @@ const Detail = ({ match, updateStatusWord, wordsToday }: DetailProps) => {
             >
               {isDone() ? <Icon icon={icons.check} color="#fff" /> : 'Done'}
             </Button>
-          )}
-        </DetailContent>
+          </DetailContent>
+        )}
       </>
     );
   };
