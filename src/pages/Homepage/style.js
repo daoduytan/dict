@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import theme from '../../configs/theme';
 
 const WordLine = styled(Link)`
-  height: 70px;
+  min-height: 70px;
   display: flex;
   align-items: center;
   font-size: 25px;
@@ -16,7 +16,7 @@ const WordLine = styled(Link)`
     text-align: center;
     display: inline-block;
     width: 50px;
-    margin-right: 30px;
+    margin-right: 15px;
     color: rgba(0, 0, 0, 0.4);
   }
 `;

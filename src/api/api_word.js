@@ -12,4 +12,5 @@ const getDetailWord = word => {
   return word_detail;
 };
 
+// eslint-disable-next-line
 export { getDetailWord };

@@ -1,9 +1,28 @@
 // @flow
-import { lastIndexOf } from 'lodash';
+import { lastIndexOf, differenceBy } from 'lodash';
 import arrayWord from '../data';
+import { firestore } from '../api';
 
-const generalWord = int => {
-  const data = arrayWord;
+console.log('dadad');
+
+const getWordsDone = async () => {
+  const snapshot = await firestore.collection('words_done').get();
+  return snapshot.docs.map(doc => {
+    const { word } = doc.data();
+    return word;
+  });
+};
+
+const getWordsNotDone = async () => {
+  const words_done = await getWordsDone();
+
+  const words_not_done = differenceBy(arrayWord, words_done);
+
+  return words_not_done;
+};
+
+const generalWord = async int => {
+  const data = await getWordsNotDone();
   const max = data.length;
   const min = 1;
   const n = int;

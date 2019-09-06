@@ -138,7 +138,12 @@ const getNumberActive = params => {
   return tabExist.number;
 };
 
-const Tabs = ({ match, history }) => {
+type TabsProsp = {
+  match: any,
+  history: any
+};
+
+const Tabs = ({ match, history }: TabsProsp) => {
   const { params } = match;
 
   const [activeTab, setActiveTab] = useState(params.params || 'today');

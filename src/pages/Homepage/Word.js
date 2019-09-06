@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 
 import { Icon } from '../../components';
 import icons from '../../assets/icons';
@@ -100,7 +101,43 @@ const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
         }}
       >
         <span>{w.number + 1}.</span>
-        {w.word}
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingRight: 50
+          }}
+        >
+          {w.word}
+          {w.day && Date.now() - w.day + 7 * 24 * 60 * 60 * 1000 > 0 && (
+            <div
+              style={{
+                color: theme.color.text,
+                fontSize: 14,
+                fontStyle: 'italic',
+                fontWeight: 600,
+                fontFamily: theme.font.family.primary
+              }}
+            >
+              {moment(Date.now()).to(moment(w.day + 7 * 24 * 60 * 60 * 1000))}
+            </div>
+          )}
+
+          {w.day && Date.now() - w.day + 7 * 24 * 60 * 60 * 1000 < 0 && (
+            <div
+              style={{
+                color: 'red',
+                fontSize: 16,
+                fontWeight: 400,
+                fontFamily: theme.font.family.primary
+              }}
+            >
+              Time out
+            </div>
+          )}
+        </div>
       </WordLine>
 
       {w.status && w.type !== type && (
