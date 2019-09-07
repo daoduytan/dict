@@ -4,7 +4,6 @@ import 'normalize.css';
 import AppRouter from './appRouter';
 import GlobalStyle from './GlobalStyle';
 
-
 const App = () => (
   <>
     <GlobalStyle />

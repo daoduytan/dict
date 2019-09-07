@@ -3,8 +3,6 @@ import { lastIndexOf, differenceBy } from 'lodash';
 import arrayWord from '../data';
 import { firestore } from '../api';
 
-console.log('dadad');
-
 const getWordsDone = async () => {
   const snapshot = await firestore.collection('words_done').get();
   return snapshot.docs.map(doc => {

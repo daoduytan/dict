@@ -11,6 +11,7 @@ const connect = select => Component => props => {
       const { values, context } = s;
 
       const state = useContext(rootContext[context]);
+
       values.forEach(element => {
         newProps = { ...newProps, [element]: state[element] };
       });

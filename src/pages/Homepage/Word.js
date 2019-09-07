@@ -25,26 +25,26 @@ type WordProps = {
   updateTypeDate: Function
 };
 
+const newType = type => {
+  if (type === 'today') {
+    return 'day';
+  }
+  if (type === 'day') {
+    return 'week';
+  }
+  if (type === 'week') {
+    return 'month';
+  }
+
+  return 'day';
+};
+
 const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
   const [w, setW] = useState(word);
 
   const { uid } = user;
 
   const handleChangeType = () => {
-    const newType = () => {
-      if (type === 'today') {
-        return 'day';
-      }
-      if (type === 'day') {
-        return 'week';
-      }
-      if (type === 'week') {
-        return 'month';
-      }
-
-      return 'day';
-    };
-
     ref
       .doc(uid)
       .collection('word_today')
@@ -61,21 +61,21 @@ const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
             .collection('word_today')
             .doc(doc.id)
             .update({
-              type: newType()
+              type: newType(type)
             });
         });
       });
 
-    setW({ ...w, type: newType() });
+    setW({ ...w, type: newType(type) });
 
-    updateTypeDate({ ...w, type: newType() });
+    updateTypeDate({ ...w, type: newType(type) });
 
     if (type === 'today') {
-      ref1.add({ ...word, uid, type: newType() });
+      ref1.add({ ...word, uid, type: newType(type) });
     } else {
       ref1
-
         .where('uid', '==', user.uid)
+        .where('id', '==', word.id)
         .get()
         .then(snapshot => {
           if (snapshot.empty) {
@@ -84,7 +84,7 @@ const Word = ({ word, type, user, updateTypeDate }: WordProps) => {
 
           return snapshot.forEach(doc => {
             ref1.doc(doc.id).update({
-              type: newType()
+              type: newType(type)
             });
           });
         });
