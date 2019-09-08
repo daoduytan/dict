@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import connect from '../../state/connect';
 import { Button } from '../../components';
 import theme from '../../configs/theme';
 
@@ -14,10 +15,11 @@ const Title = styled.div`
 `;
 
 type ModalResetCacheProps = {
-  onClick: Function
+  onClick: Function,
+  reload: Function
 };
 
-const ModalResetCache = ({ onClick }: ModalResetCacheProps) => {
+const ModalResetCache = ({ onClick, reload }: ModalResetCacheProps) => {
   const [success, setSuccess] = useState(false);
 
   const resetCache = () => {
@@ -27,7 +29,26 @@ const ModalResetCache = ({ onClick }: ModalResetCacheProps) => {
 
   const renderContent = () => {
     if (success) {
-      return <Title>Cache has been reset</Title>;
+      return (
+        <>
+          <Title>Cache has been reset</Title>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+              gridGap: theme.size.space
+            }}
+          >
+            <Button onClick={onClick} size="large" block>
+              Exit
+            </Button>
+
+            <Button onClick={reload} size="large" block type="primary">
+              Reload data
+            </Button>
+          </div>
+        </>
+      );
     }
 
     return (
@@ -55,4 +76,6 @@ const ModalResetCache = ({ onClick }: ModalResetCacheProps) => {
   return <div style={{ textAlign: 'center' }}>{renderContent()}</div>;
 };
 
-export default ModalResetCache;
+const enhance = connect([{ values: ['reload'], context: 'wordContext' }]);
+
+export default enhance(ModalResetCache);
